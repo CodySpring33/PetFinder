@@ -6,12 +6,14 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb');
 
 
 const app = express();
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -27,6 +29,41 @@ app.get('/', (req, res) => {
 app.get('/register', (req, res) =>{
   res.sendFile(path.join(__dirname, 'views', 'register.html'));
 });
+
+app.get('/posts', async (req, res) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    try {
+      await client.connect();
+  
+      const db = client.db(dbName);
+      const collection = db.collection('posts');
+  
+      const posts = await collection.find().sort({ _id: -1 }).limit(10).toArray();
+  
+      if (posts.length === 0) {
+        res.status(404).send('No posts found.');
+        return;
+      }
+  
+      // Send the requested post to the client
+      const index = parseInt(req.query.index);
+      if (index >= 0 && index < posts.length) {
+        const currentPost = posts[index];
+        res.json(currentPost);
+      } else {
+        res.json({ message: "No posts left" });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('An error occurred while connecting to the database.');
+    } finally {
+      await client.close();
+    }
+  });
+  
+  
+  
+  
 
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;

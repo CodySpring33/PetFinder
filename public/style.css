@@ -219,5 +219,23 @@
     }
   }
   
+
+  #swipe-content {
+    position: relative;
+    left: 0;
+    transition: left 0.3s ease-out;
+  }
+
+  #swipe-content.swiped-left {
+    left: -100%;
+  }
+
+  #swipe-content.swiped-right {
+    left: 100%;
+  }
+
+  #swipe-div {
+    user-select: none;
+  }
   
   
