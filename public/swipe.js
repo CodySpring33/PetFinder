@@ -35,7 +35,8 @@ function getNextPost() {
     {
       const latestPost = document.getElementById('latest-post');
       latestPost.innerHTML = `
-      <h3>${post.message}</h3>`
+      <h3>${post.message}</h3>`;
+      setCookie('currentIndex', currentIndex);
     }
     else{
       const latestPost = document.getElementById('latest-post');
