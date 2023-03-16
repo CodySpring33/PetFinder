@@ -29,36 +29,43 @@ app.get('/register', (req, res) =>{
 });
 
 app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-
-  // Implement server-side validation logic here (e.g., check for unique username/email)
-
-  // Hash the password
-  const saltRounds = config.saltRounds;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  // Save the user data to MongoDB
-  const client = new MongoClient(uri, { useUnifiedTopology: true });
-  try {
-    await client.connect();
-    const db = client.db(dbName);
-    const usersCollection = db.collection('users');
-
-    const newUser = {
-      username,
-      email,
-      password: hashedPassword,
-    };
-
-    await usersCollection.insertOne(newUser);
-    res.send('User registered successfully');
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Error registering user');
-  } finally {
-    await client.close();
-  }
-});
+    const { username, email, password } = req.body;
+  
+    // Connect to MongoDB
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    try {
+      await client.connect();
+      const db = client.db(dbName);
+      const usersCollection = db.collection('users');
+  
+      // Check if username or email already exist in the database
+      const existingUser = await usersCollection.findOne({ $or: [{ username }, { email }] });
+      if (existingUser) {
+        res.status(400).send('Username or email already exists');
+        return;
+      }
+  
+      // Hash the password
+      const saltRounds = config.saltRounds;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+      // Save the user data to MongoDB
+      const newUser = {
+        username,
+        email,
+        password: hashedPassword,
+      };
+  
+      await usersCollection.insertOne(newUser);
+      res.send('User registered successfully');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error registering user');
+    } finally {
+      await client.close();
+    }
+  });
+  
 
 
 app.get('/login', async (req, res) => {
@@ -130,8 +137,9 @@ app.get('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
   
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set JWT as an HTTP-only cookie
-  
-        res.redirect('/');
+        
+        
+        res.redirect('/?loginSuccessful=true');
   
     } catch (err) {
       console.error(err);
@@ -140,6 +148,8 @@ app.get('/login', async (req, res) => {
       await client.close();
     }
   });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

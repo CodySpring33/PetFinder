@@ -173,4 +173,51 @@
   input[type="submit"]:hover {
     background-color: #3e8e41;
   }
+
+
+  .hidden {
+    display: none;
+  }
+  
+  #notification {
+    position: fixed;
+    top: -50px; /* start at a negative top position */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out; /* add a transition for top */
+    animation: slide-down 0.5s ease-in-out forwards; /* use an animation to transition top from -50px to 0px */ 
+  }
+
+  #notification.remove-notification{
+    animation: slide-up 0.5s ease-in-out forwards;
+  }
+  
+  #notification.success-notification {
+    opacity: 1;
+  }
+  
+  @keyframes slide-down {
+    0% {
+      top: -50px;
+    }
+    100% {
+      top: 0;
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: -50px;
+    }
+  }
+  
+  
   

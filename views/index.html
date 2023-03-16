@@ -5,13 +5,14 @@
         <link rel="stylesheet" href="style.css">
     </head>
   <body>
+
+    <div id="notification"></div>
+
     <header>
       <h1>Pet Posts</h1>
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
           <li><a href="/login">Login</a></li>
           <li><a href="/register">Register</a></li>
         </ul>
@@ -54,5 +55,28 @@
     <footer>
       <p>&copy; 2023 Pet Posts</p>
     </footer>
+
+    <script>
+      // Check if the user just logged in
+      const urlParams = new URLSearchParams(window.location.search);
+      const loginSuccessful = urlParams.get('loginSuccessful');
+      
+      if (loginSuccessful) {
+        // Show the notification
+        const notificationDiv = document.getElementById('notification');
+        notificationDiv.innerHTML = 'Login successful!';
+        notificationDiv.classList.add('success-notification');
+        
+        // Remove the notification after a few seconds
+        setTimeout(() => {
+          notificationDiv.innerHTML = '🐾';
+          notificationDiv.classList.remove('success-notification');
+          notificationDiv.classList.add('remove-notification');
+          window.history.replaceState(null, null, window.location.pathname);
+        }, 3000);
+        
+      }
+    </script>
+
   </body>
 </html>

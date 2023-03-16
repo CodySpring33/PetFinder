@@ -7,5 +7,5 @@
       },
       dbName: 'PetFinder',
     },
-    saltRounds: /*number of salting rounds 10-15 recommended*/,
+    saltRounds: 10 /*number of salting rounds 10-15 recommended*/,
   };
