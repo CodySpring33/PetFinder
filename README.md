@@ -54,5 +54,6 @@ Navigate to http://localhost:3000/ to see the local version of the app.
 
 ## License
 
-Include the license under which your software is released. For example:
+This software is licensed under the [MIT License](LICENSE).
+
 
