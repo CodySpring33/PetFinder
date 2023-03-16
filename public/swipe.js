@@ -30,8 +30,6 @@ function getNextPost() {
   })
   .then(response => response.json())
   .then(post => {
-    // Display the post on the page
-    console.log(post);
     // Update the HTML with the next post
     if(post.message == "No posts left")
     {
@@ -50,8 +48,8 @@ function getNextPost() {
         <p><strong>Fun Fact:</strong> ${post.funFact}</p>
         <a href="${post.link}">Read More</a>
       `;
-      currentIndex++;
       setCookie('currentIndex', currentIndex);
+      currentIndex++;
     }
   }).catch(error => console.error(error));
 }
