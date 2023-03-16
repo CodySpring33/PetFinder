@@ -42,9 +42,6 @@ To install and run this application, you will need to have Node.js and npm (Node
 
 Install node.js
 
-### Installing
-
-Provide step-by-step instructions on how to install the software.
 
 ## Usage
 
