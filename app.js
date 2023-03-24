@@ -22,8 +22,47 @@ const uri = config.mongodb.getUri();
 const dbName = config.mongodb.dbName;
 
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+app.get('/', async (req, res) => {
+  const jwtCookie = req.cookies.jwt;
+  if (jwtCookie) {
+
+    try {
+      // Verify the JWT using the JWT_SECRET key
+      const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+      const decodedToken = jwt.verify(jwtCookie, jwtSecret);
+
+      // Find the user by ID in the MongoDB database
+      const client = new MongoClient(uri, { useUnifiedTopology: true });
+
+      await client.connect(); // Wait for the connection to be established
+
+      const db = client.db(dbName);
+      const usersCollection = db.collection('users');
+
+      const user = await usersCollection.findOne({ _id: new ObjectId(decodedToken.userId) });
+
+      if (user) {
+        // If the user is found, send a success response and terminate the request
+
+        return res.redirect('/content');
+      } else {
+        // If the user is not found, send an error response and terminate the request
+
+        return res.status(401).send('Invalid token');
+
+      }
+    } catch (err) {
+      // If the JWT is invalid, ignore it and proceed with the login flow
+      console.error(err);
+    }
+  }
+
+  // If no valid JWT cookie is present in the request, send the login page
+  res.sendFile(path.join(__dirname, 'views', 'landing.html'));
+});
+
+app.get('/content', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'content.html'));
 });
 
 app.get('/register', (req, res) =>{
@@ -65,7 +104,7 @@ app.get('/posts', async (req, res) => {
   
   
 
-app.post('/register', async (req, res) => {
+  app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
   
     // Connect to MongoDB
@@ -91,10 +130,18 @@ app.post('/register', async (req, res) => {
         username,
         email,
         password: hashedPassword,
+        isAdmin: false,
       };
   
       await usersCollection.insertOne(newUser);
-      res.send('User registered successfully');
+  
+      // Log the user in after registration
+      const user = await usersCollection.findOne({ email });
+      const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '15m' });
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set JWT as an HTTP-only cookie
+      res.redirect('/content');
+  
     } catch (err) {
       console.error(err);
       res.status(500).send('Error registering user');
@@ -102,6 +149,7 @@ app.post('/register', async (req, res) => {
       await client.close();
     }
   });
+  
   
 
 
@@ -128,7 +176,7 @@ app.get('/login', async (req, res) => {
         if (user) {
           // If the user is found, send a success response and terminate the request
   
-          return res.redirect('/');
+          return res.redirect('/content');
         } else {
           // If the user is not found, send an error response and terminate the request
   
@@ -171,12 +219,12 @@ app.get('/login', async (req, res) => {
         // If the password matches, the login is successful
         // If the password matches, generate a JWT token
         const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
-        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '15m' });
   
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set JWT as an HTTP-only cookie
         
         
-        res.redirect('/?loginSuccessful=true');
+        res.redirect('/content?loginSuccessful=true');
   
     } catch (err) {
       console.error(err);
@@ -186,7 +234,10 @@ app.get('/login', async (req, res) => {
     }
   });
 
-
+  app.post('/logout', (req, res) => {
+    res.clearCookie('jwt'); // Clear the JWT cookie
+    res.redirect('/');
+  });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
