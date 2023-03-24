@@ -11,7 +11,6 @@ const ejs = require('ejs');
 
 const app = express();
 app.use(cookieParser());
-app.use(express.static('public'));
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -236,6 +235,8 @@ app.get('/posts', async (req, res) => {
       res.clearCookie('jwt'); // Clear the JWT cookie
       res.redirect('/');
       });
+
+      app.use(express.static('public'));
       
       const PORT = process.env.PORT || 3000;
       app.listen(PORT, () => {
