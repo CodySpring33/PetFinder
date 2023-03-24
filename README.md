@@ -25,17 +25,11 @@ To install and run this application, you will need to have Node.js and npm (Node
 
 ```npm install```
 
-4. Edit the `config.example.js` rename it to `config.js` and update the values for use with mongoDB
-
-
-5. Create the `.env` file and update the environment variables with a JWT secret:
-
-```JWT_SECRET="generated key"```
+4. Edit the `example.env` rename it to `.env` and update the values for use with mongoDB and generate a JWT secret
 
 6. Start the application:
 
-```node app.js```
-
+```npm start```
 
 
 ### Prerequisites
@@ -47,7 +41,7 @@ Install node.js
 
 Run the program:
 
-```node app.js```
+```npm start```
 
 Navigate to http://localhost:3000/ to see the local version of the app.
 
