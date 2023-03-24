@@ -1,4 +1,3 @@
-const config = require('./config');
 require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -9,7 +8,6 @@ const path = require('path');
 const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb');
 
-
 const app = express();
 app.use(cookieParser());
 app.use(express.static('public'));
@@ -18,9 +16,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const uri = config.mongodb.getUri();
-const dbName = config.mongodb.dbName;
-
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
 app.get('/', async (req, res) => {
   const jwtCookie = req.cookies.jwt;
@@ -32,11 +30,11 @@ app.get('/', async (req, res) => {
       const decodedToken = jwt.verify(jwtCookie, jwtSecret);
 
       // Find the user by ID in the MongoDB database
-      const client = new MongoClient(uri, { useUnifiedTopology: true });
+      const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
 
       await client.connect(); // Wait for the connection to be established
 
-      const db = client.db(dbName);
+      const db = client.db(MONGODB_DBNAME);
       const usersCollection = db.collection('users');
 
       const user = await usersCollection.findOne({ _id: new ObjectId(decodedToken.userId) });
@@ -70,11 +68,11 @@ app.get('/register', (req, res) =>{
 });
 
 app.get('/posts', async (req, res) => {
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
     try {
       await client.connect();
   
-      const db = client.db(dbName);
+      const db = client.db(MONGODB_DBNAME);
       const collection = db.collection('posts');
   
       const posts = await collection.find().sort({ _id: -1 }).limit(10).toArray();
@@ -100,18 +98,14 @@ app.get('/posts', async (req, res) => {
     }
   });
   
-  
-  
-  
-
   app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
   
     // Connect to MongoDB
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
     try {
       await client.connect();
-      const db = client.db(dbName);
+      const db = client.db(MONGODB_DBNAME);
       const usersCollection = db.collection('users');
   
       // Check if username or email already exist in the database
@@ -122,7 +116,7 @@ app.get('/posts', async (req, res) => {
       }
   
       // Hash the password
-      const saltRounds = config.saltRounds;
+      const saltRounds = SALT_ROUNDS;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
   
       // Save the user data to MongoDB
@@ -150,10 +144,7 @@ app.get('/posts', async (req, res) => {
     }
   });
   
-  
-
-
-app.get('/login', async (req, res) => {
+  app.get('/login', async (req, res) => {
     // Check if a valid JWT cookie is present in the request
     const jwtCookie = req.cookies.jwt;
     if (jwtCookie) {
@@ -164,11 +155,11 @@ app.get('/login', async (req, res) => {
         const decodedToken = jwt.verify(jwtCookie, jwtSecret);
   
         // Find the user by ID in the MongoDB database
-        const client = new MongoClient(uri, { useUnifiedTopology: true });
+        const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
   
         await client.connect(); // Wait for the connection to be established
   
-        const db = client.db(dbName);
+        const db = client.db(MONGODB_DBNAME);
         const usersCollection = db.collection('users');
   
         const user = await usersCollection.findOne({ _id: new ObjectId(decodedToken.userId) });
@@ -197,49 +188,48 @@ app.get('/login', async (req, res) => {
     const { email, password } = req.body;
   
     // Find the user by email in the MongoDB database
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
     try {
-        await client.connect();
-        const db = client.db(dbName);
-        const usersCollection = db.collection('users');
+      await client.connect();
+      const db = client.db(MONGODB_DBNAME);
+      const usersCollection = db.collection('users');
   
-        const user = await usersCollection.findOne({ email });
-  
-        if (!user) {
+      const user = await usersCollection.findOne({email });
+
+      if (!user) {
         return res.status(401).send('Invalid email or password');
-        }
-  
-        // Compare the provided password with the hashed password stored in the database
-        const passwordMatch = await bcrypt.compare(password, user.password);
-  
-        if (!passwordMatch) {
+      }
+      
+      // Compare the provided password with the hashed password stored in the database
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      
+      if (!passwordMatch) {
         return res.status(401).send('Invalid email or password');
-        }
-  
-        // If the password matches, the login is successful
-        // If the password matches, generate a JWT token
-        const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
-        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '15m' });
-  
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set JWT as an HTTP-only cookie
-        
-        
-        res.redirect('/content?loginSuccessful=true');
-  
+      }
+      
+      // If the password matches, the login is successful
+      // If the password matches, generate a JWT token
+      const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '15m' });
+      
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set JWT as an HTTP-only cookie
+      
+      
+      res.redirect('/content?loginSuccessful=true');
     } catch (err) {
       console.error(err);
       res.status(500).send('Error during login');
-    } finally {
+      } finally {
       await client.close();
-    }
-  });
-
-  app.post('/logout', (req, res) => {
-    res.clearCookie('jwt'); // Clear the JWT cookie
-    res.redirect('/');
-  });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+      }
+      });
+      
+      app.post('/logout', (req, res) => {
+      res.clearCookie('jwt'); // Clear the JWT cookie
+      res.redirect('/');
+      });
+      
+      const PORT = process.env.PORT || 3000;
+      app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+      });        
