@@ -64,7 +64,7 @@ app.get('/', async (req, res) => {
   }
 
   // If no valid JWT cookie is present in the request, send the login page
-  res.render('landing');
+  res.render('index');
 });
 
 app.get('/content', (req, res) => {
