@@ -20,6 +20,8 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
+app.set('view engine', 'ejs');
+
 app.get('/', async (req, res) => {
   const jwtCookie = req.cookies.jwt;
   if (jwtCookie) {
@@ -56,15 +58,15 @@ app.get('/', async (req, res) => {
   }
 
   // If no valid JWT cookie is present in the request, send the login page
-  res.sendFile(path.join(__dirname, 'views', 'landing.html'));
+  res.render('landing');
 });
 
 app.get('/content', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'content.html'));
+  res.render('content');
 });
 
 app.get('/register', (req, res) =>{
-  res.sendFile(path.join(__dirname, 'views', 'register.html'));
+  res.render('register')
 });
 
 app.get('/posts', async (req, res) => {
@@ -181,7 +183,7 @@ app.get('/posts', async (req, res) => {
     }
   
     // If no valid JWT cookie is present in the request, send the login page
-    res.sendFile(path.join(__dirname, 'views', 'login.html'));
+    res.render('login');
   });
   
   app.post('/login', async (req, res) => {
