@@ -35,6 +35,7 @@
   "homepage": "https://github.com/CodySpring33/PetFinder#readme",
   "description": "",
   "devDependencies": {
+    "glob-parent": "^6.0.2",
     "gulp": "^4.0.2"
   }
 }
