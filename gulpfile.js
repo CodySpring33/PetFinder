@@ -6,7 +6,7 @@ gulp.task('ejs', function() {
   return gulp.src('views/*.ejs')
     .pipe(ejs())
     .pipe(rename({ extname: '.html' }))
-    .pipe(gulp.dest('./views'))
+    .pipe(gulp.dest('./public'))
 });
 
 gulp.task('default', gulp.series('ejs'));
