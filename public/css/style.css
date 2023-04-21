@@ -99,6 +99,9 @@
     color: white;
     padding: 10px;
     text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
   }
   footer p {
     font-size: 14px;
@@ -288,4 +291,15 @@
   display: flex; /* Add this to make the form a flex container */
   flex-direction: column; /* Add this to arrange the form elements vertically */
   flex-grow: 1; /* Add this to make the form grow and fill the available space */
+}
+
+/* morepets.ejs */
+.grid-container {
+  height: 800px; /* Set the height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.container-fluid{
+  height: 333px;
+  width: 333px;
 }
