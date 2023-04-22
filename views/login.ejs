@@ -3,20 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style2.css">
 </head>
 <body>
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>TailWag</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="content">All-Pets</a></li>
+          <li><a href="/" id="logout-link">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<main>
   <div class="login-container">
-    <form id="login-form" action="/login" method="POST">
-      <h1>Login</h1>
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required>
-      <br>
-      <input type="submit" value="Login">
-    </form>
+    <div class="form-container">
+      <form id="login-form" action="/login" method="POST">
+        <h1>Login</h1>
+          <div class="form-group">
+            <label for="email" class="visually-hidden">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="visually-hidden">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+    </div>
   </div>
 </body>
+</main>
+<footer>
+  <p>&copy; 2023 TailWag</p>
+</footer>
 </html>

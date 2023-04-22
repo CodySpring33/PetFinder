@@ -1,4 +1,4 @@
-var swipeContent = document.getElementById("swipe-content");
+var swipeContent = document.getElementsByClassName("swipe-card")[0];
 var startX, endX;
 let currentIndex = getCookie('currentIndex');
 
@@ -12,9 +12,11 @@ swipeContent.addEventListener("mouseup", function(event) {
 
   if (deltaX > 0) {
     swipeContent.classList.add("swiped-right");
+    console.log("right");
     getNextPost();
   } else if (deltaX < 0) {
     swipeContent.classList.add("swiped-left");
+    console.log("left");
     getNextPost();
   }
 
