@@ -50,7 +50,7 @@ function getNextPost() {
         <p><strong>Color:</strong> ${post.color}</p>
         <p><strong>Location:</strong> ${post.location}</p>
         <p><strong>Physical</strong>: ${post.physical}</p>
-        <p><strong>Health</strong>: ${post.health}</p>
+        <p><strong>Health</strong>: ${post.health}  </p>
         <p><strong>Fee:</strong> ${post.fee}</p>
         <p><strong>Description:</strong> ${post.description}</p>
       `;

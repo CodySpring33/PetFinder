@@ -93,7 +93,6 @@ app.get('/posts', async (req, res) => {
       const index = parseInt(req.query.index);
       if (index >= 0 && index < posts.length) {
         const currentPost = posts[index];
-        console.log(currentPost)
         res.json(currentPost);
       } else {
         res.json({ message: "No posts left" });
