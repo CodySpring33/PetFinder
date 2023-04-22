@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pet Posts</title>
-        <link rel="stylesheet" href="css/style.css">
+        <title>TailWag</title>
+        <link rel="stylesheet" href="css/style2.css">
     </head>
   <body>
 
     <div id="notification"></div>
 
     <header>
-      <h1>Pet Posts</h1>
-      <nav>
-        <ul>
-          <li><a href="#" onclick="location.href='/home'">Home</a></li>
-          <li><a href="#" onclick="location.href='/morepets'">More Pets</a></li>
-          <li><a href="#" id="logout-link">Logout</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <h2>Welcome to Pet Posts!</h2>
-      <p>Here, you can learn about different types of pets and their unique characteristics.</p>
-      <p>Check out our latest posts:</p>
-      <section>
-        <div id="swipe-div" class="container-fluid">
-            <div class="col-md-12" id="swipe-content">
-              <article id="latest-post">
-                <h3>Loading...</h3>
-              </article>
-              </div>
-          </div>
+      <div class="header-container">
+        <div class="logo-container">
+          <h1>TailWag</h1>
         </div>
-      </section>
-    </main>
-    
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/content">Pet Swipe</a></li>
+            <li><a href="#">All Pets</a></li>
+            <li><a href="#" id="logout-link">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  
+  <h2>Welcome to TailWag!</h2>
+  <p>Here, you can learn about different types of pets and their unique characteristics.</p>
+  <p>Check out our latest posts:</p>
+  <section>
+    <div id="swipe-div" class="container-fluid">
+      <div class="swipe-card" id="swipe-content">
+        <article id="latest-post">
+          <h3>Post Title 1</h3>
+          <p>Post content goes here...</p>
+        </article>
+      </div>
+    </section>
+
     <footer>
-      <p>&copy; 2023 Pet Posts</p>
+      <p>&copy; 2023 TailWag</p>
     </footer>
 
     <script src="js/swipe.js"></script>

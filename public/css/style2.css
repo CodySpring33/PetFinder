@@ -1,228 +1,422 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 /* Recommended color palette */
- :root {
-     --primary-color: #1B9CFC;
-     --secondary-color: #55E6C1;
-     --background-color: #F5F6FA;
-     --text-color: #2F3640;
+:root {
+    --primary-color: #3B8BEB;
+    --secondary-color: #55E6C1;
+    --background-color: #E7E3D4;
+    --text-color: #000000;
 }
+
 /* General styling */
- * {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
- body {
-     font-family: Arial, sans-serif;
-     background-color: var(--background-color);
-     color: var(--text-color);
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
- header {
-     background-color: white;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-     padding: 10px 20px;
+
+header {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    color: white;
+    font-size: 24px;
 }
- .header-container {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
- .logo-container {
-     display: flex;
-     align-items: center;
+
+.image-container {
+    height: 250px;
+    /* Replace with your desired height */
+    overflow: hidden;
+    position: relative;
 }
- .logo-container img {
-     height: 60px;
-     margin-right: 10px;
+
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
- main {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: calc(100vh - 130px);
+
+nav {
+    display: flex;
+    justify-content: center;
+    list-style: none;
 }
- .login-container {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
+
+nav ul {
+    list-style-type: none;
 }
- .form-container {
-     background-color: white;
-     border-radius: 5px;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-     padding: 40px;
-     margin-right: 50px;
+
+nav li {
+    margin: 0 10px;
+    display: inline-block;
+    padding: 10px;
 }
- .form-container h1 {
-     font-size: 24px;
-     margin-bottom: 20px;
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
 }
- .form-group {
-     margin-bottom: 20px;
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 380px);
 }
- .form-group label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
- .form-group input {
-     width: 100%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
+
+.form-container {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: center;
 }
- .form-checkbox {
-     display: flex;
-     align-items: center;
-     margin-bottom: 10px;
+
+.form-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
- .form-checkbox input {
-     margin-right: 5px;
+
+.form-group {
+    margin-bottom: 20px;
 }
- .form-checkbox label {
-     font-size: 14px;
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-checkbox input {
+    margin-right: 5px;
+}
+
+.form-checkbox label {
+    font-size: 14px;
+}
+
 /* Visually hidden class */
- .visually-hidden {
-     position: absolute;
-     clip: rect(0 0 0 0);
-     width: 1px;
-     height: 1px;
-     margin: -1px;
-     padding: 0;
-     border: 0;
-     overflow: hidden;
-     white-space: nowrap;
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    white-space: nowrap;
 }
- .sr-only {
-     position: absolute;
-     width: 1px;
-     height: 1px;
-     padding: 0;
-     margin: -1px;
-     overflow: hidden;
-     clip: rect(0,0,0,0);
-     border: 0;
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
+
 /* Form styling */
- .form-group {
-     position: relative;
-     margin-bottom: 20px;
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
 }
- .form-group input {
-     width: 100%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
- .form-group input:focus {
-     outline: none;
-     border-color: var(--primary-color);
-     box-shadow: 0 0 0 2px rgba(27, 156, 252, 0.5);
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(27, 156, 252, 0.5);
 }
- .form-group input:focus::placeholder {
-     color: transparent;
+
+.form-group input:focus::placeholder {
+    color: transparent;
 }
- .form-group label {
-     position: absolute;
-     top: 10px;
-     left: 10px;
-     font-size: 14px;
-     color: #999;
-     transition: all 0.2s ease-out;
+
+.form-group label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #999;
+    transition: all 0.2s ease-out;
 }
- .form-group input:focus + label, .form-group input:not(:placeholder-shown) + label {
-     top: -10px;
-     left: 5px;
-     font-size: 12px;
-     color: var(--primary-color);
+
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label {
+    top: -10px;
+    left: 5px;
+    font-size: 12px;
+    color: var(--primary-color);
 }
- .login-container button[type="submit"] {
-     padding: 10px 30px;
-     background-color: var(--primary-color);
-     color: white;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
+
+.login-container button[type="submit"] {
+    padding: 10px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
- .login-container button[type="submit"]:hover {
-     background-color: var(--secondary-color);
+
+.login-container button[type="submit"]:hover {
+    background-color: var(--secondary-color);
 }
- .signup-container {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
+
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
- .signup-container h2 {
-     font-size: 22px;
-     margin-bottom: 10px;
+
+.signup-container h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
 }
- .signup-container p {
-     font-size: 16px;
-     margin-bottom: 30px;
+
+.signup-container p {
+    font-size: 16px;
+    margin-bottom: 30px;
 }
- .signup-container button {
-     padding: 10px 30px;
-     background-color: var(--primary-color);
-     color: white;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
+
+.signup-container button {
+    padding: 10px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
- .signup-container button:hover {
-     background-color: var(--secondary-color);
+
+.signup-container button:hover {
+    background-color: var(--secondary-color);
 }
- footer {
-     background-color: white;
-     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-     padding: 10px 20px;
-     margin-top: auto;
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
- footer p {
-     text-align: center;
+
+footer p {
+    text-align: center;
 }
+
 /* Forgot Password link module */
- .forgot-password {
-     color: var(--primary-color);
-     text-decoration: none;
-     margin-top: 10px;
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-top: 10px;
 }
- .forgot-password:hover {
-     text-decoration: underline;
+
+.forgot-password:hover {
+    text-decoration: underline;
 }
+
 /* Responsive styles */
- @media (max-width: 768px) {
-     header {
-         padding: 10px;
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
     }
-     .header-container {
-         flex-direction: column;
-         align-items: flex-start;
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
     }
-     .logo-container img {
-         height: 40px;
-         margin-right: 0;
-         margin-bottom: 10px;
+
+    .login-container {
+        display: flex;
+        flex-direction: column;
     }
-     main {
-         height: calc(100vh - 100px);
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        height: 300px;
+        justify-content: center;
     }
-     .login-container {
-         flex-direction: column;
-         align-items: center;
+
+    .signup-container {
+        margin-bottom: 30px;
     }
-     .form-container {
-         margin-right: 0;
-         margin-bottom: 30px;
+
+    footer {
+        padding: 10px;
     }
-     .signup-container {
-         margin-bottom: 30px;
-    }
-     footer {
-         padding: 10px;
-    }
-     footer p {
-         font-size: 14px;
+
+    footer p {
+        font-size: 14px;
     }
 }
- 
+
+.hidden {
+    display: none;
+}
+
+#notification {
+    position: fixed;
+    top: -50px;
+    /* start at a negative top position */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    /* add a transition for top */
+    animation: slide-down 0.5s ease-in-out forwards;
+    /* use an animation to transition top from -50px to 0px */
+}
+
+#notification.remove-notification {
+    animation: slide-up 0.5s ease-in-out forwards;
+}
+
+#notification.success-notification {
+    opacity: 1;
+}
+
+@keyframes slide-down {
+    0% {
+        top: -50px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        top: 0px;
+    }
+
+    100% {
+        top: -50px;
+    }
+}
+
+#swipe-div {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.swiped-left {
+    animation: slide-left 1.5s ease-in-out forwards;
+}
+
+.swiped-right {
+    animation: slide-right 1.5s ease-in-out forwards;
+}
+
+.swipe-card {
+    width: 80%;
+    max-width: 500px;
+    height: 80%;
+    max-height: 500px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.swipe-card:hover {
+    transform: scale(1.02);
+}
+
+.swipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.swipe-card .card-text h4 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#swipe-content {
+    position: relative;
+    left: 0;
+    transition: left 0.3s ease-out;
+}
+
+#swipe-content.swiped-left {
+    left: -25%;
+}
+
+#swipe-content.swiped-right {
+    left: 25%;
+}
+
+#swipe-div {
+    overflow: visible;
+    user-select: none;
+    width: 100%;
+    max-width: 600px;
+}
