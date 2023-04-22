@@ -43,13 +43,16 @@ function getNextPost() {
     else{
       const latestPost = document.getElementById('latest-post');
       latestPost.innerHTML = `
-        <h3>${post.title}</h3>
-        <img src="${post.image}" alt="${post.alt}">
+        <h3>${post.name}</h3>
+        <img src="${post.imageURL}" alt="${post.name}">
         <p><strong>Breed:</strong> ${post.breed}</p>
-        <p><strong>Personality:</strong> ${post.personality}</p>
-        <p><strong>Size:</strong> ${post.size}</p>
-        <p><strong>Fun Fact:</strong> ${post.funFact}</p>
-        <a href="${post.link}">Read More</a>
+        <p><strong>Coat:</strong> ${post.coat}</p>
+        <p><strong>Color:</strong> ${post.color}</p>
+        <p><strong>Location:</strong> ${post.location}</p>
+        <p><strong>Physical</strong>: ${post.physical}</p>
+        <p><strong>Health</strong>: ${post.health}</p>
+        <p><strong>Fee:</strong> ${post.fee}</p>
+        <p><strong>Description:</strong> ${post.description}</p>
       `;
       setCookie('currentIndex', currentIndex);
       currentIndex++;
