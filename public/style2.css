@@ -384,55 +384,18 @@ footer p {
     left: 0;
     transition: left 0.3s ease-out;
   }
-  
+
   #swipe-content.swiped-left {
-    animation: swipeLeft 0.5s ease-out forwards;
+    left: -25%;
   }
-  
+
   #swipe-content.swiped-right {
-    animation: swipeRight 0.5s ease-out forwards;
+    left: 25%;
   }
-  
-  @keyframes swipeLeft {
-    0% {
-      left: 0;
-    }
-    100% {
-      left: -25%;
-    }
-  }
-  
-  @keyframes swipeRight {
-    0% {
-      left: 0;
-    }
-    100% {
-      left: 25%;
-    }
-  }
-  
-  #swipe-content.swiped-left.recenter {
-    animation: recenterLeft 0.5s ease-out forwards;
-  }
-  
-  #swipe-content.swiped-right.recenter {
-    animation: recenterRight 0.5s ease-out forwards;
-  }
-  
-  @keyframes recenterLeft {
-    0% {
-      left: -200%;
-    }
-    100% {
-      left: 0;
-    }
-  }
-  
-  @keyframes recenterRight {
-    0% {
-      left: 200%;
-    }
-    100% {
-      left: 0;
-    }
+
+  #swipe-div {
+    overflow: visible;
+    user-select: none; 
+    width: 100%;
+    max-width: 600px;
   }
