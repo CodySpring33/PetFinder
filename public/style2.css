@@ -379,29 +379,60 @@ footer p {
     font-size: 1.5rem;
   }
 
-  @keyframes slide-down {
+  #swipe-content {
+    position: relative;
+    left: 0;
+    transition: left 0.3s ease-out;
+  }
+  
+  #swipe-content.swiped-left {
+    animation: swipeLeft 0.5s ease-out forwards;
+  }
+  
+  #swipe-content.swiped-right {
+    animation: swipeRight 0.5s ease-out forwards;
+  }
+  
+  @keyframes swipeLeft {
     0% {
-      transform: translateY(-100%);
+      left: 0;
     }
     100% {
-      transform: translateY(0);
+      left: -25%;
     }
   }
   
-  @keyframes slide-left {
+  @keyframes swipeRight {
     0% {
-      transform: translateX(0);
+      left: 0;
     }
     100% {
-      transform: translateX(-200%);
+      left: 25%;
     }
   }
   
-  @keyframes slide-right {
+  #swipe-content.swiped-left.recenter {
+    animation: recenterLeft 0.5s ease-out forwards;
+  }
+  
+  #swipe-content.swiped-right.recenter {
+    animation: recenterRight 0.5s ease-out forwards;
+  }
+  
+  @keyframes recenterLeft {
     0% {
-      transform: translateX(0);
+      left: -200%;
     }
     100% {
-      transform: translateX(200%);
+      left: 0;
+    }
+  }
+  
+  @keyframes recenterRight {
+    0% {
+      left: 200%;
+    }
+    100% {
+      left: 0;
     }
   }
