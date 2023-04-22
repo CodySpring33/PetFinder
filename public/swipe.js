@@ -72,3 +72,189 @@ function getCookie(name) {
   }
   return 0;
 }
+{/* <div class="container mt-5 grid-container">
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 1</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 2</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 3</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<!-- Add more rows for infinite scrolling -->
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 4 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 4</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 5 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 5</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 6 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 6</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 7 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 7</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 8 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 8</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <!-- Content for Grid Item 8 -->
+    <div class="container-fluid bg-light p-4">
+      <h4>Grid Item 9</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 10</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 11</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 12</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 13</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 14</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 15</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 16</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 17</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 18</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 19</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 20</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 21</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 1 -->
+      <h4>Grid Item 22</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 2 -->
+      <h4>Grid Item 23</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+  <div class="col-sm-4 grid-item">
+    <div class="container-fluid bg-light p-4">
+      <!-- Content for Grid Item 3 -->
+      <h4>Grid Item 24</h4>
+      <p>Content goes here</p>
+    </div>
+  </div>
+</div> */}
