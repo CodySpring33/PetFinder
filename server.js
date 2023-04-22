@@ -16,6 +16,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//use bootstrap
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+//for bootstrap
+// app.use(express.static("public")); 
+
+
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
@@ -69,9 +75,29 @@ app.get('/', async (req, res) => {
 app.get('/content', (req, res) => {
   res.render('content');
 });
-
+app.get('/home', (req, res) => {
+  res.render('content');
+});
 app.get('/register', (req, res) =>{
   res.render('register')
+});
+
+app.get('/morepets', async (req, res) => {
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+  try {
+    await client.connect();
+
+    const db = client.db(MONGODB_DBNAME);
+    const collection = db.collection('posts');
+    const posts = await collection.find().sort({ _id: -1 }).limit(10).toArray();
+    
+    res.render('morepets', { posts })  
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while connecting to the database.');
+  } finally {
+    await client.close();
+  }
 });
 
 app.get('/posts', async (req, res) => {
