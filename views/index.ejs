@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <title>TailWag - Landing Page</title>
   <link rel="stylesheet" href="css/style2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
 
@@ -20,9 +20,15 @@
       </nav>
     </div>
   </header>
+
   <div class="image-container">
     <img src="img/max.jpg" alt="Header Image">
+    <form class="search-form" action="/search" method="get">
+      <input type="text" name="q" placeholder="Search...">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
   </div>
+
   <main>
     <div class="login-container">
       <div class="form-container">

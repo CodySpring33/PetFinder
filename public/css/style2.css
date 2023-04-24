@@ -137,6 +137,54 @@ main {
     font-size: 14px;
 }
 
+.image-container {
+    position: relative;
+}
+
+.search-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.search-form input[type="text"] {
+    font-size: 18px;
+    color: #333;
+    background-color: transparent;
+    border: none;
+    flex-grow: 1;
+    padding: 10px;
+    outline: none;
+}
+
+.search-form button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-form button[type="submit"]:hover {
+    color: var(--primary-color);
+}
+
+.search-form i.fas.fa-search {
+    margin-right: 10px;
+}
+
 /* Visually hidden class */
 .visually-hidden {
     position: absolute;
