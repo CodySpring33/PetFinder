@@ -104,11 +104,14 @@ main p {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 40px;
-    margin-right: 50px;
     display: flex;
     flex-direction: column;
     height: 300px;
     justify-content: center;
+}
+
+.form-divider {
+    margin:25px;
 }
 
 .form-container h1 {
