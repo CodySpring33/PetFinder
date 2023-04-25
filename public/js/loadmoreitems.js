@@ -1,7 +1,6 @@
 const myDiv = document.getElementById('my-grid');
 var firstLoad = 1;
 
-var loader = document.getElementById('loader')
 window.addEventListener("load", (event) => {
   addItems();
 });
@@ -18,7 +17,7 @@ function addItems(glolastID) {
 
   fetch(fetchString, {
     method: 'GET',
-  })// Replace '/mydata' with the URL of your Express route
+  })
     .then(response => {
       if (!response.ok) {
         throw new Error("HTTP status " + response.status);
