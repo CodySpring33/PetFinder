@@ -295,7 +295,7 @@
 
 /* morepets.ejs */
 .grid-container {
-  height: 800px; /* Set the height of the container */
+  height: 1000px; /* Set the height of the container */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -303,4 +303,3 @@
   height: 333px;
   width: 333px;
 }
-

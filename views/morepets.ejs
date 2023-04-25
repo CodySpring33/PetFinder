@@ -24,27 +24,19 @@
   </header>
   <main>
     <h2>More Pets</h2>
-    <% for (let i=0; i < posts.length; i+=3) { %>
-      <div class="row mt-3">
-        <% for (let j=i; j < i + 3 && j < posts.length; j++) { %>
-          <div class="col-sm-4 grid-item">
-            <div class="container-fluid bg-light p-4">
-              <!-- Content for Grid Item <%= j+1 %> -->
-              <h4> <%=posts[j].name%> </h4>
-              <p> <%=posts[j].description%> </p>
-            </div>
-          </div>
-          <% } %>
+    <div id="my-grid" class="container mt-5 grid-container">
+      <div data-lastID="" id="my-container">
       </div>
-      <% } %>
-
+    </div>
+    </div>
+    <!-- css messed up w footer right now -->
+    <!-- <footer>
+      <p id="footer">&copy; 2023 Pet Posts</p>
+    </footer> -->
   </main>
-
-  <footer>
-    <p id="footer">&copy; 2023 Pet Posts</p>
-  </footer>
-
+  </script>
   <script src="js/swipe.js"></script>
+  <script src="js/loadmoreitems.js"></script>
   <script src="js/login.js"></script>
   <script src="js/logout.js"></script>
   <script src="/js/bootstrap.min.js"></script>
