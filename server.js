@@ -82,6 +82,37 @@ app.get('/register', (req, res) => {
   res.render('register')
 });
 
+//add grid items
+app.get('/additems', async (req, res) => {
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+  await client.connect();
+  const db = client.db(MONGODB_DBNAME);
+  const collection = db.collection('posts');
+  const page_size = 9 // 
+  const last_id = req.query.last_id; // Get 'last_id' from query parameter
+  let cursor;
+
+  if (!last_id) {
+    // When it is the first page
+    cursor = collection.find().limit(page_size);
+  } else {
+    cursor = collection.find({ '_id': { '$gt': new ObjectId(last_id) } }).limit(page_size);
+  }
+
+  // Get the data
+  const data = await cursor.toArray();
+  if (!data.length) {
+    // No documents left
+    return res.json({ data: null, last_id: null });
+  }
+
+  // Since documents are naturally ordered with _id, last document will have max id.
+  const new_last_id = data[data.length - 1]._id.toString();
+
+  // Return data and new_last_id
+  return res.json({ data, last_id: new_last_id });
+});
+
 app.get('/morepets', async (req, res) => {
   const searchTerm = req.query.q;
   
@@ -108,10 +139,8 @@ app.get('/morepets', async (req, res) => {
           }
         }
       ]).toArray();
-    } else {
-      posts = await collection.find().sort({ _id: 1 }).limit(100).toArray();
     }
-    
+        
     res.render('morepets', { posts });
   } catch (err) {
     console.error(err);
@@ -198,11 +227,13 @@ app.post('/register', async (req, res) => {
   }
 });
 
+
 app.get('/liked',async (req, res) => {
   console.log("recieved like request")
 
 
 });
+
 
 app.get('/login', async (req, res) => {
   // Check if a valid JWT cookie is present in the request
@@ -305,5 +336,5 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
+});        
 
