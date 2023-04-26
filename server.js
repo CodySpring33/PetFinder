@@ -113,12 +113,51 @@ app.get('/additems', async (req, res) => {
   return res.json({ data, last_id: new_last_id });
 });
 
-app.get('/morepets', async (req, res) => {
+app.get('/search', async (req, res) => {
+  const searchTerm = req.query.q;
   try {
-    res.render('morepets'); // Render the view
+    const queryString = `?q=${searchTerm}`;
+    res.redirect(`/morepets${queryString}`);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error'); 
+    res.status(500).send('An error occurred while searching the database');
+  }
+});
+
+app.get('/morepets', async (req, res) => {
+  const searchTerm = req.query.q;
+  
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+  try {
+    await client.connect();
+    
+    const db = client.db(MONGODB_DBNAME);
+    const collection = db.collection('posts');
+    
+    let posts = [];
+    
+    if (searchTerm) {
+      posts = await collection.aggregate([
+        {
+          $search: {
+            index: "search",
+            text: {
+              query: searchTerm,
+              path: {
+                wildcard: "*"
+              }
+            }
+          }
+        }
+      ]).toArray();
+    }
+        
+    res.render('morepets', { posts });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while connecting to the database.');
+  } finally {
+    await client.close();
   }
 });
 
