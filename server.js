@@ -198,6 +198,12 @@ app.post('/register', async (req, res) => {
   }
 });
 
+app.get('/liked',async (req, res) => {
+  console.log("recieved like request")
+
+
+});
+
 app.get('/login', async (req, res) => {
   // Check if a valid JWT cookie is present in the request
   const jwtCookie = req.cookies.jwt;
