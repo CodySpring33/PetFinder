@@ -2,26 +2,29 @@
 <html>
 
 <head>
-  <title>Pet Posts</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>TailWag</title>
+  <link rel="stylesheet" href="css/style2.css">
   <link rel="stylesheet" href="css/custom.css">
 </head>
 
 <body>
 
-  <div id="notification"></div>
+
 
   <header>
-    <h1>Pet Posts</h1>
-    <nav>
-      <ul>
-        <li><a href="#" onclick="location.href='/home'">Home</a></li>
-        <li><a href="#" id="more-pets-link"> More Pets </a></li>
-        <li><a href="#" id="logout-link">Logout</a></li>
-
-      </ul>
-    </nav>
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>TailWag</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="location.href='/home'">Home</a></li>
+          <li><a href="#" id="more-pets-link"> More Pets </a></li>
+          <li><a href="#" id="logout-link">Logout</a></li>
+        </ul>
+      </nav>
   </header>
+
   <main>
     <h2>More Pets</h2>
     <% for (let i=0; i < posts.length; i+=3) { %>
@@ -30,22 +33,23 @@
           <div class="col-sm-4 grid-item">
             <div class="container-fluid bg-light p-4">
               <!-- Content for Grid Item <%= j+1 %> -->
-              <h4> <%=posts[j].name%> </h4>
-              <p> <%=posts[j].description%> </p>
+              <h4>
+                <%=posts[j].name%>
+              </h4>
+              <p>
+                <%=posts[j].description%>
+              </p>
             </div>
           </div>
-          <% } %>
+        <% } %>
       </div>
-      <% } %>
-
+    <% } %>
   </main>
-
+  
   <footer>
     <p id="footer">&copy; 2023 Pet Posts</p>
   </footer>
 
-  <script src="js/swipe.js"></script>
-  <script src="js/login.js"></script>
   <script src="js/logout.js"></script>
   <script src="/js/bootstrap.min.js"></script>
 </body>

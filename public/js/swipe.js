@@ -12,11 +12,32 @@ swipeContent.addEventListener("mouseup", function(event) {
 
   if (deltaX > 0) {
     swipeContent.classList.add("swiped-right");
-    console.log("right");
-    getNextPost();
-  } else if (deltaX < 0) {
+    //cant get http only cookie TODO fix
+    console.log(getCookie('jwt'));
+    /*if(getCookie('jwt') != 0){
+      //TODO send an http request to post to /liked
+      fetch('/liked', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + getCookie('jwt')
+        }})
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('An error occurred while liking the post.');
+        }
+        getNextPost();
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+    }
+    else{ */
+      alert("An error occured: No user logon");
+    
+  //} else if (deltaX < 0) {
     swipeContent.classList.add("swiped-left");
-    console.log("left");
+    
     getNextPost();
   }
 
@@ -55,6 +76,7 @@ function getNextPost() {
         <p><strong>Description:</strong> ${post.description}</p>
       `;
       setCookie('currentIndex', currentIndex);
+      setCookie('postID', post._id);
       currentIndex++;
     }
   }).catch(error => console.error(error));

@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>TailWag</title>
-        <link rel="stylesheet" href="css/style2.css">
-    </head>
-  <body>
 
-    <div id="notification"></div>
+<head>
+  <title>TailWag</title>
+  <link rel="stylesheet" href="css/style2.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
 
-    <header>
-      <div class="header-container">
-        <div class="logo-container">
-          <h1>TailWag</h1>
+<body>
+
+  <div id="notification"></div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>TailWag</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/morepets">More Pets</a></li>
+          <li><a href="/content">Pet Swipe</a></li>
+          <li><a href="#">All Pets</a></li>
+          <li><a href="#" id="logout-link">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <h2>Welcome to TailWag!</h2>
+    <p>Here, you can learn about different types of pets and their unique characteristics.</p>
+    <p>Check out our latest posts:</p>
+    <section>
+      <div id="swipe-div" class="container-fluid">
+        <div class="swipe-card" id="swipe-content">
+          <article id="latest-post">
+            <h3>Post Title 1</h3>
+            <p>Post content goes here...</p>
+          </article>
         </div>
-        <nav>
-          <ul>
-            <li><a href="/morepets">More Pets</a></li>
-            <li><a href="/content">Pet Swipe</a></li>
-            <li><a href="#">All Pets</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-  
-  <h2>Welcome to TailWag!</h2>
-  <p>Here, you can learn about different types of pets and their unique characteristics.</p>
-  <p>Check out our latest posts:</p>
-  <section>
-    <div id="swipe-div" class="container-fluid">
-      <div class="swipe-card" id="swipe-content">
-        <article id="latest-post">
-          <h3>Post Title 1</h3>
-          <p>Post content goes here...</p>
-        </article>
-      </div>
     </section>
+  </main>
+  <footer>
+    <p>&copy; 2023 TailWag</p>
+  </footer>
 
-    <footer>
-      <p>&copy; 2023 TailWag</p>
-    </footer>
+  <script src="js/swipe.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/logout.js"></script>
+</body>
 
-    <script src="js/swipe.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/logout.js"></script>
-  </body>
 </html>
