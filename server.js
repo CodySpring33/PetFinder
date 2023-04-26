@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const cors = require('cors');
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId, MONGO_CLIENT_EVENTS } = require('mongodb');
 const ejs = require('ejs');
 
 const app = express();
@@ -111,17 +111,6 @@ app.get('/additems', async (req, res) => {
 
   // Return data and new_last_id
   return res.json({ data, last_id: new_last_id });
-});
-
-app.get('/search', async (req, res) => {
-  const searchTerm = req.query.q;
-  try {
-    const queryString = `?q=${searchTerm}`;
-    res.redirect(`/morepets${queryString}`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('An error occurred while searching the database');
-  }
 });
 
 app.get('/morepets', async (req, res) => {
@@ -238,6 +227,14 @@ app.post('/register', async (req, res) => {
   }
 });
 
+
+app.get('/liked',async (req, res) => {
+  console.log("recieved like request")
+
+
+});
+
+
 app.get('/login', async (req, res) => {
   // Check if a valid JWT cookie is present in the request
   const jwtCookie = req.cookies.jwt;
@@ -274,7 +271,7 @@ app.get('/login', async (req, res) => {
     }
   }
 
-  // If no valid JWT cookie ifs present in the request, send the login page
+  // If no valid JWT cookie is present in the request, send the login page
   res.render('login');
 });
 
@@ -323,9 +320,21 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/search', async (req, res) => {
+  const searchTerm = req.query.q;
+  try {
+    const queryString = `?q=${searchTerm}`;
+    res.redirect(`/morepets${queryString}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while searching the database');
+  }
+});
+
 app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });        
+
