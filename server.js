@@ -8,6 +8,48 @@ const path = require('path');
 const cors = require('cors');
 const { MongoClient, ObjectId, MONGO_CLIENT_EVENTS } = require('mongodb');
 const ejs = require('ejs');
+// Image storing
+const multer = require('multer')
+const multerS3 = require('multer-s3-v2')
+const {s3, getImageStream} = require('./s3.js')
+
+// S3 functions
+
+const storage = multerS3({
+  s3: s3,
+  bucket: process.env.AWS_BUCKET_NAME,
+  metadata: function(req, file, cb) {
+    cb(null, { originalname: file.originalname });
+  },
+  key: function(req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, uniqueSuffix + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ 
+  storage: storage, 
+  limits:{fileSize:1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb)
+  }
+}).any()
+
+
+function checkFileType (file, cb) {
+  const fileTypes = /jpeg|png|jpg/
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase())
+  const mimetype = fileTypes.test(file.mimetype)
+
+  if (mimetype && extname){
+    return cb(null, true)
+  }
+  else{
+    cb("Please upload images only")
+  }
+}
+
+// End of S3 functions
 
 const app = express();
 app.use(cookieParser());
@@ -149,6 +191,106 @@ app.get('/morepets', async (req, res) => {
     await client.close();
   }
 });
+
+// Post
+app.get('/post', async (req, res) =>{
+  let images = []
+  res.render('post', {images: images})  
+  /// get images
+  //const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+  // try {
+  //   await client.connect();
+
+  //   const db = client.db(MONGODB_DBNAME);
+  //   const collection = db.collection('images');
+  //   const images = await collection.find().sort({ _id: -1 }).toArray();
+    
+  //   res.render('post', { images:images })  
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).send('An error occurred while connecting to the database.');
+  // } finally {
+  //   await client.close();
+  // }
+});
+
+
+
+app.post("/upload", async(req, res) =>{
+  upload(req, res, (err) =>{
+    if(!err && req.files != ""){
+      // update database here
+      saveImagesInDB(req.files)
+      //console.log(req.files)
+      res.status(200).send()
+    }
+    else if(!err && req.files ==""){
+      res.statusMessage = "Please select an image to upload"
+      res.status(400).end()
+    }
+    else{
+      res.statusMessage == (err === "Please upload images only") ? err : "Photo exceed limit of 1 MB"
+      res.status(400).end()
+    }
+  })
+})
+
+async function saveImagesInDB(images){
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
+  await client.connect();
+      const db = client.db(MONGODB_DBNAME);
+      const usersCollection = db.collection('images');
+  for(let i = 0; i < images.length; i++){
+    try {
+      
+      const key = images[i].key
+      const url = images[i].location
+      //console.log("------------------------------",images)
+      const userid = 2
+      // Check if image key already exists in dabase
+      const existingimage = await usersCollection.findOne({ $or: [{ key}] });
+      if (existingimage) {
+        return;
+      }
+  
+      // Save the user data to MongoDB
+      const image = {
+        userid,
+        key,
+        url
+      };
+      await usersCollection.insertOne(image);
+  
+  
+    } catch (err) {
+      console.error(err);
+      // res.status(500).send('Error inserting image to db:',key);
+    } finally {
+      await client.close();
+    }
+  }
+}
+
+
+
+// app.put("/delete", (req, res) =>{
+//   const deleteImages = req.body.deleteImages
+//   if(deleteImages == ""){
+//     res.statusMessage = "Please select an image to delete"
+//     res.status(400).end()
+//   }
+//   else{
+//     res.statusMessage = "Successfully deleted"
+//     res.status(200).end()
+//   }
+// })
+
+// app.get("/:image_key", (req, res)=>{
+//   const readStream = getImageStream(req.params.image_key)
+//   readStream.pipe(res)
+// })
+
+//End of Post
 
 app.get('/posts', async (req, res) => {
   const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });

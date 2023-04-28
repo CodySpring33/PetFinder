@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Post</title>
+        <link rel="stylesheet" href="css/style3.css">
+    </head>
+  <body>
+
+    <header>
+      <div class="header-container">
+        <div class="logo-container">
+          <h1>TailWag</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="content">All Pets</a></li>         
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="app">
+
+      <div class="header">
+        <h2>Upload Images</h2>
+        <div class="server-message"></div>
+      </div>
+  
+      <form id="queued-form">
+        <div class="header">
+          <h3>Queued in Frontend</h3>
+          <button type="submit">Upload</button>
+        </div>
+        <!--Images user is trying to upload go here-->
+        <div class="queued-div"></div>
+      </form>
+
+      <div class="input-div">
+        <p>Drag & drop photos here or <span class="browse">Browse</span></p>
+        <input type="file" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg"/>
+      </div>
+  
+      <!-- <form id="saved-form">
+        <div class="header">
+          <h3>Saved in Server</h3>
+          <button type="submit">Delete</button>
+        </div>
+        <div class="saved-div"></div>
+      </form> -->
+  
+      
+
+      <!-- <div class="petFields">
+        <form id="login-form" action="/login" method="POST">
+          <label >Pet Type:</label>
+          <input  required>
+          <br>
+          <label >Name:</label>
+          <input required>
+          <br>
+          <label >Breed:</label>
+          <input required>
+          <br>
+          <label >Color:</label>
+          <input required>
+          <br>
+          <label >Location:</label>
+          <input required>
+          <br>
+          <label >Description:</label>
+          <input required>
+        </form>
+      </div> -->
+
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Pet Posts</p>
+    </footer>
+
+    <script src="./js/post.js"></script>
+  </body>
+</html>
