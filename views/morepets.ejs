@@ -26,37 +26,206 @@
   </header>
 
   <main>
-    <h2>More Pets</h2>
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+      aria-controls="offcanvasExample">
+      Filter
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filter Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <div class="filterContainer">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+
+                <article class="card-group-item">
+                  <header class="card-header">
+                    <h6 class="title">Dog Breeds</h6>
+                  </header>
+                  <div class="filter-content">
+                    <div class="card-body">
+                      <form>
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            French Bulldogs
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Labrador Retrievers
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Golden Retrievers
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            German Shepherd Dogs
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Poodles
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Bulldogs
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Rottweilers
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Beagles
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            Dachshunds
+                          </span>
+                        </label> <!-- form-check.// -->
+                        <label class="form-check">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-label">
+                            German Shorthaired Pointers
+                          </span>
+                        </label> <!-- form-check.// -->
+                      </form>
+                    </div>
+                  </div> <!-- card-body.// -->
+                </article> <!-- card-group-item.// -->
+
+
+                <article class="card-group-item">
+                  <header class="card-header">
+                    <h6 class="title">Color </h6>
+                  </header>
+                  <div class="filter-content">
+                    <div class="card-body">
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Black
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          White
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Brown
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Red
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Gold
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Gray
+                        </span>
+                      </label>
+                    </div> <!-- card-body.// -->
+                  </div>
+                </article> <!-- card-group-item.// -->
+
+                <article class="card-group-item">
+                  <header class="card-header">
+                    <h6 class="title">Coat </h6>
+                  </header>
+                  <div class="filter-content">
+                    <div class="card-body">
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Short
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Medium
+                        </span>
+                      </label>
+                      <label class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                        <span class="form-check-label">
+                          Long
+                        </span>
+                      </label>
+                    </div> <!-- card-body.// -->
+                  </div>
+                </article> <!-- card-group-item.// -->
+                
+              </div>
+            </div> <!-- card.// -->
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="my-grid" class="container mt-5 grid-container">
       <div data-lastID="" id="my-container">
-      <% for (let i=0; i < posts.length; i+=3) { %>
-        <div class="row mt-3">
-          <% for (let j=i; j < i + 3 && j < posts.length; j++) { %>
-            <div class="col-sm-4 grid-item">
-              <div class="container-fluid bg-light p-4">
-                <!-- Content for Grid Item <%= j+1 %> -->
-                <h4>
-                  <%=posts[j].name%>
-                </h4>
-                <p>
-                  <%=posts[j].description%>
-                </p>
+        <% for (let i=0; i < posts.length; i+=3) { %>
+          <div class="row mt-3">
+            <% for (let j=i; j < i + 3 && j < posts.length; j++) { %>
+              <div class="col-sm-4 grid-item">
+                <div class="container-fluid bg-light p-4">
+                  <!-- Content for Grid Item <%= j+1 %> -->
+                  <h4>
+                    <%=posts[j].name%>
+                  </h4>
+                  <p>
+                    <%=posts[j].description%>
+                  </p>
+                </div>
               </div>
-            </div>
+              <% } %>
+          </div>
           <% } %>
-        </div>
-      <% } %>
-  </div>
-</div>
+      </div>
+    </div>
 
   </main>
-  
+
   <footer>
     <p id="footer">&copy; 2023 Pet Posts</p>
   </footer>
 
   <script src="js/logout.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="js/loadmoreitems.js"></script>
 </body>
 

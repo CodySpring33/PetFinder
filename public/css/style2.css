@@ -495,3 +495,9 @@ footer p {
     height: 333px;
     width: 333px;
   }
+  
+  .filterContainer{
+    height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
