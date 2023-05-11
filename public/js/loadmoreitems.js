@@ -36,10 +36,12 @@ function addItems(glolastID) {
           html += '<div class="row mt-3">';
           for (let j = i; j < i + 3 && j < newitems.length; j++) {
             html += '<div class="col-sm-4 grid-item">' +
-              '<div class="container-fluid bg-light p-4">' +
-              '<!-- Content for Grid Item ' + (j + 1) + ' -->' +
-              '<h4>' + newitems[j].name + '</h4>' +
-              '<p>' + newitems[j].description + '</p>' +
+              '<div class="card">' +
+              '<img src="img/max.jpg" class="card-img-top">' +
+              '<div class="card-body">'+
+              '<h5 class="card-title">' + newitems[j].name + '</h5>' +
+              '<p class="card-text">' + newitems[j].description +'.</p>'+
+              ' </div>'+
               '</div>' +
               '</div>';
           }
