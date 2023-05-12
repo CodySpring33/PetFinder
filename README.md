@@ -67,7 +67,6 @@ The project mainly uses the following technologies:
 - MongoDB
 - Amazon S3
 - NodeJS
-- Gulp
 
 
 ## License
