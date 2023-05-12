@@ -11,7 +11,6 @@
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "gulp-ejs": "^5.1.0",
     "gulp-rename": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.1.0",
@@ -39,8 +38,7 @@
   "homepage": "https://github.com/CodySpring33/PetFinder#readme",
   "description": "",
   "devDependencies": {
-    "glob-parent": "^6.0.2",
-    "gulp": "^4.0.2"
+    "glob-parent": "^6.0.2"
   },
   "engines": {
     "node": "18.15.0",
