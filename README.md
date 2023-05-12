@@ -6,6 +6,7 @@ OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submissio
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Technology Used](#tech)
 - [License](#license)
 
 ## Installation
@@ -45,9 +46,20 @@ Run the program:
 
 Navigate to http://localhost:3000/ to see the local version of the app.
 
+## Tech
+
+The project mainly uses the following technologies:
+
+CSS
+JavaScript
+EJS
+SCSS
+MongoDB
+Amazon S3
+NodeJS
+Gulp
+
 
 ## License
 
 This software is licensed under the [MIT License](LICENSE).
-
-
