@@ -57,6 +57,7 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.set('views', path.join(__dirname, './Views'));
 
 //use bootstrap
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
