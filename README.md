@@ -26,7 +26,7 @@ To install and run this application, you will need to have Node.js and npm (Node
 
 ```npm install```
 
-4. Edit the `example.env` rename it to `.env` and update the values for use with mongoDB and generate a JWT secret
+4. Edit the `example.env` rename it to `.env` and update the values for use with mongoDB/Amazon S3 and generate a JWT secret
 
 6. Start the application:
 
