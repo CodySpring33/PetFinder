@@ -68,9 +68,6 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
-// Set up EJS as the view engine
-app.engine('ejs', ejs.renderFile);
-
 // Set the views directory
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
