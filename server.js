@@ -220,8 +220,11 @@ app.post("/upload", async(req, res) =>{
   upload(req, res, (err) =>{
     if(!err && req.files != ""){
       // update database here
-      saveImagesInDB(req.files)
-      //console.log(req.files)
+      
+      saveFieldsInDB(req.body).then(function(result){
+        console.log(result)
+        saveImagesInDB(req.files, result)
+      })
       res.status(200).send()
     }
     else if(!err && req.files ==""){
@@ -235,7 +238,7 @@ app.post("/upload", async(req, res) =>{
   })
 })
 
-async function saveImagesInDB(images){
+async function saveImagesInDB(images, postPromise){
   const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
   await client.connect();
       const db = client.db(MONGODB_DBNAME);
@@ -252,9 +255,10 @@ async function saveImagesInDB(images){
       if (existingimage) {
         return;
       }
-  
+      const postid = postPromise.insertedId
       // Save the user data to MongoDB
       const image = {
+        postid,
         userid,
         key,
         url
@@ -265,10 +269,52 @@ async function saveImagesInDB(images){
     } catch (err) {
       console.error(err);
       // res.status(500).send('Error inserting image to db:',key);
-    } finally {
-      await client.close();
-    }
+    } 
   }
+  await client.close();
+}
+
+async function saveFieldsInDB(fields){
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
+  await client.connect();
+  const db = client.db(MONGODB_DBNAME);
+  const usersCollection = db.collection('posts');
+
+  const petName = fields.petName
+  const breed = fields.breed
+  const available = fields.available
+  const petType = fields.petType
+  const color = fields.color
+  const coat = fields.coat
+  const location = fields.location
+  const physical = fields.physical
+  const health = fields.health
+  const fee = fields.fee
+  const description = fields.description
+  const userid = 2
+
+  // Save the user data to MongoDB
+  const post = {
+    userid,
+    breed,
+    available,
+    petType,
+    petName,
+    breed,
+    color,
+    coat,
+    location,
+    physical,
+    health,
+    fee,
+    description
+  };
+  const insertedFields = await usersCollection.insertOne(post, function(){
+    return post._id
+
+  })
+  await client.close();
+  return insertedFields
 }
 
 
