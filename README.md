@@ -2,12 +2,21 @@
 
 OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submission/pages/viewSingleProject.php?id=g3Y16iyxGGeDewQE
 
+
+
 ## Table of Contents
 
 - [Installation](#installation)
+- [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Technology Used](#tech)
 - [License](#license)
+
+## Prerequisites
+
+- Install node.js
+- Configure MongoDB database
+- Configure Amazon S3 database
 
 ## Installation
 
@@ -31,11 +40,6 @@ To install and run this application, you will need to have Node.js and npm (Node
 6. Start the application:
 
 ```npm start```
-
-
-### Prerequisites
-
-Install node.js
 
 
 ## Usage
