@@ -54,14 +54,14 @@ Navigate to http://localhost:3000/ to see the local version of the app.
 
 The project mainly uses the following technologies:
 
-CSS
-JavaScript
-EJS
-SCSS
-MongoDB
-Amazon S3
-NodeJS
-Gulp
+- CSS
+- JavaScript
+- EJS
+- SCSS
+- MongoDB
+- Amazon S3
+- NodeJS
+- Gulp
 
 
 ## License
