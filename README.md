@@ -6,11 +6,17 @@ OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submissio
 
 ## Table of Contents
 
+- [Navigation](#navigation)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Technology Used](#tech)
 - [License](#license)
+
+## Navigation
+- You can find all ejs files within the /views folder of the repo which are responsible for html rendering
+- The /public folder contains all JavaScript that the site needs to function as well as stylesheets
+- Any JavaScript outside of the previously mentioned folders are responsible for hosting and rendering the site as well as database connection.
 
 ## Prerequisites
 
