@@ -57,7 +57,6 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.set('views', path.join(__dirname, './Views'));
 
 //use bootstrap
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
@@ -68,9 +67,6 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
-
-// Set up EJS as the view engine
-app.engine('ejs', ejs.renderFile);
 
 // Set the views directory
 app.set('views', path.join(__dirname, 'views'));
