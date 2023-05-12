@@ -41,5 +41,8 @@
   "devDependencies": {
     "glob-parent": "^6.0.2",
     "gulp": "^4.0.2"
+  },
+  "engines": {
+    "node": "18.15.0"
   }
 }
