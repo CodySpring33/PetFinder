@@ -1,9 +1,29 @@
 const myDiv = document.getElementById('my-grid');
 var firstLoad = 1;
+let filters = {};
 
 window.addEventListener("load", (event) => {
   addItems();
 });
+
+function addFilter() {
+  const checkboxes = document.querySelectorAll('.form-check-input');
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      const category = (checkbox.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.title').textContent.trim()).replace(/ /g, '_');
+      const filter = (checkbox.parentNode.querySelector('.form-check-label').textContent.trim()).replace(/ /g, '_');
+
+      if (filters[category]) {
+        if (!filters[category].includes(filter)) {
+          filters[category].push(filter);
+        }
+      } else {
+        filters[category] = [filter];
+      }
+    }
+  });
+  addItems();
+}
 
 function addItems(glolastID) {
   let fetchString;
@@ -12,8 +32,25 @@ function addItems(glolastID) {
     firstLoad = 0;
   }
   else {
-    fetchString = `/additems?last_id=${glolastID}`;
+    if (filters.length === 0) {
+      fetchString = `/additems?last_id=${glolastID}`;
+    } else if (glolastID !== undefined) {
+      let filterParams = Object.keys(filters)
+        .map(key => `${key}=${filters[key]}`)
+        .join('&');
+      fetchString = `/additems?last_id=${glolastID}&${filterParams}`;
+    } else {
+      let filterParams = Object.keys(filters)
+        .map(key => `${key}=${filters[key]}`)
+        .join('&');
+      fetchString = `/additems?${filterParams}`;
+    }
   }
+  console.log(fetchString);
+  return;
+  // else {
+  //   fetchString = `/additems?last_id=${glolastID}`;
+  // }
 
   fetch(fetchString, {
     method: 'GET',
