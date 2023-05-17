@@ -413,9 +413,57 @@ app.post('/register', async (req, res) => {
 });
 
 
-app.get('/liked',async (req, res) => {
-  console.log("recieved like request")
+app.post('/liked', async (req, res) => {
 
+  const jwtToken = req.cookies.jwt;
+
+  if (jwtToken) {
+    // User is logged in, handle the POST request
+    console.log('Received like request from logged-in user');
+    const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+    const decodedToken = jwt.verify(jwtToken, jwtSecret);
+    // Handle the POST request logic here
+    try {
+      const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(MONGODB_DBNAME);
+
+      // Extract the user ID and post ID from the request payload
+      const postID = req.body.postID;
+      console.log(postID);
+
+      // Check if the user exists in the liked collection
+      const likedCollection = db.collection('liked');
+      const existingUser = await likedCollection.findOne({ userid: new ObjectId(decodedToken.userId) });
+
+      if (existingUser) {
+        // User already exists, update the liked posts array
+        const result = await likedCollection.updateOne(
+          { userid: new ObjectId(decodedToken.userId) },
+          { $addToSet: { posts: new ObjectId(postID) } },
+          { upsert: true }
+        );
+        console.log('Data updated successfully:', result);
+      } else {
+        // User doesn't exist, insert a new document
+        const result = await likedCollection.insertOne({
+          userid: new ObjectId(decodedToken.userId),
+          posts: [new ObjectId(postID)]
+        });
+        console.log('New document inserted:', result);
+      }
+
+      res.sendStatus(200); // Example response
+    } catch (error) {
+      console.error('An error occurred while saving the data:', error);
+      res.sendStatus(500); // Example response
+    }
+  } else {
+    console.log('Received like request from unauthenticated user');
+    // Handle the case when the user is not logged in
+    // For example, send an error response or redirect to a login page
+    res.sendStatus(401); // Example response
+  }
 
 });
 
