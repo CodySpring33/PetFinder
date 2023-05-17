@@ -2,6 +2,10 @@ var swipeContent = document.getElementsByClassName("swipe-card")[0];
 var startX, endX;
 let currentIndex = getCookie('currentIndex');
 
+
+
+
+
 swipeContent.addEventListener("mousedown", function(event) {
   startX = event.clientX;
 });
@@ -13,29 +17,30 @@ swipeContent.addEventListener("mouseup", function(event) {
   if (deltaX > 0) {
     swipeContent.classList.add("swiped-right");
     //cant get http only cookie TODO fix
-    console.log(getCookie('jwt'));
-    /*if(getCookie('jwt') != 0){
-      //TODO send an http request to post to /liked
-      fetch('/liked', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + getCookie('jwt')
-        }})
+    var postID = getCookie('postID')
+    fetch('/liked', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({postID}),
+    })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('An error occurred while liking the post.');
+        if (response.ok) {
+          console.log('POST request successful');
+          // Handle the successful response here
+        } else {
+          console.log('POST request failed');
+          // Handle the failed response here
         }
-        getNextPost();
       })
       .catch(error => {
-        alert(error.message);
+        console.error('An error occurred during the POST request:', error);
+        // Handle the error here
       });
-    }
-    else{ */
-      alert("An error occured: No user logon");
-    
-  //} else if (deltaX < 0) {
+      getNextPost();
+  } else if (deltaX < 0) {
     swipeContent.classList.add("swiped-left");
     
     getNextPost();
@@ -65,7 +70,7 @@ function getNextPost() {
       const latestPost = document.getElementById('latest-post');
       latestPost.innerHTML = `
         <h3>${post.name}</h3>
-        <img src="${post.imageURL}" alt="${post.name}">
+        <img src="${post.imageURL}" class="card-img-top" alt="${post.name}">
         <p><strong>Breed:</strong> ${post.breed}</p>
         <p><strong>Coat:</strong> ${post.coat}</p>
         <p><strong>Color:</strong> ${post.color}</p>
@@ -78,6 +83,10 @@ function getNextPost() {
       setCookie('currentIndex', currentIndex);
       setCookie('postID', post._id);
       currentIndex++;
+      const image = document.querySelector('.image');
+      image.addEventListener('dragstart', (event) => {
+        event.preventDefault(); // Prevent the default dragging behavior
+      });
     }
   }).catch(error => console.error(error));
 }
