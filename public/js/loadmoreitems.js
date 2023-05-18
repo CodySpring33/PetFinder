@@ -6,22 +6,53 @@ window.addEventListener("load", (event) => {
   addItems();
 });
 
-function addFilter() {
-  const checkboxes = document.querySelectorAll('.form-check-input');
-  checkboxes.forEach(checkbox => {
-    if (checkbox.checked) {
-      const category = (checkbox.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.title').textContent.trim()).replace(/ /g, '_');
-      const filter = (checkbox.parentNode.querySelector('.form-check-label').textContent.trim()).replace(/ /g, '_');
+function addFilter(checkbox) {
+  console.log("this: ")
+  console.log(checkbox);
+  if(document.getElementById('my-container').length !== 0)
+    document.getElementById('my-container').innerHTML = ""
 
-      if (filters[category]) {
-        if (!filters[category].includes(filter)) {
-          filters[category].push(filter);
-        }
-      } else {
-        filters[category] = [filter];
+  // const checkboxes = document.querySelectorAll('.form-check-input');
+  // checkboxes.forEach(checkbox => {
+  //   const category = checkbox.dataset.category
+  //   const filter = checkbox.dataset.filter
+  //   if (checkbox.checked) {
+  //     if (filters[category] && !filters[category].includes(filter)) {
+  //       filters[category].push(filter);
+  //     } else {
+  //       filters[category] = [filter];
+  //     }
+  //   }
+  //   else {
+  //     if (filters[category]) {
+  //       filters[category] = filters[category].filter(item => item !== filter);
+  //       if (filters[category].length === 0) {
+  //         filters = {}
+  //       }
+  //     }
+  //   }
+  // });
+  const category = checkbox.dataset.category
+  const filter = checkbox.dataset.filter
+
+  console.log(category)
+  console.log(filter)
+  if (checkbox.checked) {
+    if (filters[category] && !filters[category].includes(filter)) {
+      filters[category].push(filter);
+    } else {
+      filters[category] = [filter];
+    }
+  }
+  else {
+    if (filters[category]) {
+      //remove repeats
+      filters[category] = filters[category].filter(item => item !== filter);
+      if (filters[category].length === 0) {
+        filters = {}
       }
     }
-  });
+  }
   addItems();
 }
 
@@ -47,7 +78,7 @@ function addItems(glolastID) {
     }
   }
   console.log(fetchString);
-  return;
+  // return;
   // else {
   //   fetchString = `/additems?last_id=${glolastID}`;
   // }
@@ -82,6 +113,7 @@ function addItems(glolastID) {
           }
           html += '</div>';
         }
+        // console.log(html)
         var myContainer = document.getElementById('my-container');
         myContainer.insertAdjacentHTML('beforeend', html);
       }
