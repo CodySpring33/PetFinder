@@ -83,10 +83,6 @@ function getNextPost() {
       setCookie('currentIndex', currentIndex);
       setCookie('postID', post._id);
       currentIndex++;
-      const image = document.querySelector('.image');
-      image.addEventListener('dragstart', (event) => {
-        event.preventDefault(); // Prevent the default dragging behavior
-      });
     }
   }).catch(error => console.error(error));
 }
