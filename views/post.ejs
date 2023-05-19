@@ -13,8 +13,10 @@
         </div>
         <nav>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="content">All Pets</a></li>         
+            <li><a href="/content">Home</a></li>
+          <li><a href="/morepets">More Pets</a></li>
+          <li><a href="/post">Post Pet</a></li>
+          <li><a href="#" id="logout-link">Logout</a></li>       
           </ul>
         </nav>
       </div>
@@ -23,79 +25,83 @@
     <main class="app">
 
       <div class="header">
-        <h2>Upload Images</h2>
+        <h2>Post Pet</h2>
         <div class="server-message"></div>
       </div>
   
       <div class="input-div">
-        <p>Drag & drop photos here or <span class="browse">Browse</span></p>
+        <p>Drag & drop photos here or <span class="details" class="browse">Browse</span></p>
         <input type="file" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg"/>
       </div>
 
       <form id="queued-form">
         <div class="header">
-          <h3>Queued in Frontend</h3>
+          <h3>Images</h3>
           
         </div>
         <!--Images user is trying to upload go here-->
         <div class="queued-div"></div>
-        <br>
-
-        <label >Pet Type:</label>
-        <input name="petType"  required>
-
-        <br>
-
-        <label >Name:</label>
-        <input name="petName"  required>
-
-        <br>
-
-        <label >Breed:</label>
-        <input name="breed"  required>
-
-        <br>
-
-        <label >Color:</label>
-        <input name="color"  required>
-
-        <br>
-  
-        <label >Available:</label>
-        <input name="available"  required>
-  
-        <br>
-
-        <label >Coat:</label>
-        <input name="coat"  required>
-
-        <br>
-
-        <label >Location:</label>
-        <input name="location"  required>
-
-        <br>
-
-        <label >Physical:</label>
-        <input name="physical" required>
-
-        <br>
-
-        <label >health:</label>
-        <input name="health" required>
-
-        <br>
-
-        <label >fee:</label>
-        <input name="fee" required>
-
-        <br>
-
-        <label >Description:</label>
-        <input name="description" required>
+        <div class ="fake-body">
+          <div class ="container">
+            <div class ="postFields">
+              <div class="input-box">
+                <span class="details" >Pet Type:</span>
+                <input name="petType"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Name:</span>
+                <input name="petName"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Breed:</span>
+                <input name="breed"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Color:</span>
+                <input name="color"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Available:</span>
+                <input name="available"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Coat:</span>
+                <input name="coat"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Location:</span>
+                <input name="location"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Physical:</span>
+                <input name="physical" required>
+              </div>
+              <div class="input-box">
+                <span class="details" >health:</span>
+                <input name="health" required>
+              </div>
+              <div class="input-box">
+                <span class="details" >fee: $</span>
+                <input name="fee" required>
+              </div>
+              <div class="input-box">
+                <span class="details"  >Description:</span>
+                <textarea name="description" id="desc" required></textarea>
+                <!-- <textarea id="desc" name="description" placeholder="Write something.." style="height:200px"></textarea> -->
+              </div>
+            </div>
+            <button type="submit">Upload</button>
+          </div>
+          
+        </div>
         
         <br>
-        <button type="submit">Upload</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
       </form>
 
       
@@ -121,7 +127,7 @@
     <footer>
       <p>&copy; 2023 Pet Posts</p>
     </footer>
-
+    <script src="js/logout.js"></script>
     <script src="./js/post.js"></script>
   </body>
 </html>

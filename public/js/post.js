@@ -68,7 +68,8 @@ const files = input.files
 for(let i = 0; i < files.length; i++){
     queuedImagesArray.push(files[i])
 }
-queuedForm.reset()
+//queuedForm.reset()
+queuedDiv.innerHTML = "";
 console.log(queuedForm)
 displayQueuedImages()
 })
