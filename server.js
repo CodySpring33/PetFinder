@@ -68,9 +68,6 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
-// Set up EJS as the view engine
-app.engine('ejs', ejs.renderFile);
-
 // Set the views directory
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -240,8 +237,11 @@ app.post("/upload", async(req, res) =>{
   upload(req, res, (err) =>{
     if(!err && req.files != ""){
       // update database here
-      saveImagesInDB(req.files)
-      //console.log(req.files)
+      
+      saveFieldsInDB(req.body).then(function(result){
+        console.log(result)
+        saveImagesInDB(req.files, result)
+      })
       res.status(200).send()
     }
     else if(!err && req.files ==""){
@@ -255,7 +255,7 @@ app.post("/upload", async(req, res) =>{
   })
 })
 
-async function saveImagesInDB(images){
+async function saveImagesInDB(images, postPromise){
   const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
   await client.connect();
       const db = client.db(MONGODB_DBNAME);
@@ -272,9 +272,10 @@ async function saveImagesInDB(images){
       if (existingimage) {
         return;
       }
-  
+      const postid = postPromise.insertedId
       // Save the user data to MongoDB
       const image = {
+        postid,
         userid,
         key,
         url
@@ -285,10 +286,52 @@ async function saveImagesInDB(images){
     } catch (err) {
       console.error(err);
       // res.status(500).send('Error inserting image to db:',key);
-    } finally {
-      await client.close();
-    }
+    } 
   }
+  await client.close();
+}
+
+async function saveFieldsInDB(fields){
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
+  await client.connect();
+  const db = client.db(MONGODB_DBNAME);
+  const usersCollection = db.collection('posts');
+
+  const petName = fields.petName
+  const breed = fields.breed
+  const available = fields.available
+  const petType = fields.petType
+  const color = fields.color
+  const coat = fields.coat
+  const location = fields.location
+  const physical = fields.physical
+  const health = fields.health
+  const fee = fields.fee
+  const description = fields.description
+  const userid = 2
+
+  // Save the user data to MongoDB
+  const post = {
+    userid,
+    breed,
+    available,
+    petType,
+    petName,
+    breed,
+    color,
+    coat,
+    location,
+    physical,
+    health,
+    fee,
+    description
+  };
+  const insertedFields = await usersCollection.insertOne(post, function(){
+    return post._id
+
+  })
+  await client.close();
+  return insertedFields
 }
 
 
@@ -390,9 +433,57 @@ app.post('/register', async (req, res) => {
 });
 
 
-app.get('/liked',async (req, res) => {
-  console.log("recieved like request")
+app.post('/liked', async (req, res) => {
 
+  const jwtToken = req.cookies.jwt;
+
+  if (jwtToken) {
+    // User is logged in, handle the POST request
+    console.log('Received like request from logged-in user');
+    const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+    const decodedToken = jwt.verify(jwtToken, jwtSecret);
+    // Handle the POST request logic here
+    try {
+      const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(MONGODB_DBNAME);
+
+      // Extract the user ID and post ID from the request payload
+      const postID = req.body.postID;
+      console.log(postID);
+
+      // Check if the user exists in the liked collection
+      const likedCollection = db.collection('liked');
+      const existingUser = await likedCollection.findOne({ userid: new ObjectId(decodedToken.userId) });
+
+      if (existingUser) {
+        // User already exists, update the liked posts array
+        const result = await likedCollection.updateOne(
+          { userid: new ObjectId(decodedToken.userId) },
+          { $addToSet: { posts: new ObjectId(postID) } },
+          { upsert: true }
+        );
+        console.log('Data updated successfully:', result);
+      } else {
+        // User doesn't exist, insert a new document
+        const result = await likedCollection.insertOne({
+          userid: new ObjectId(decodedToken.userId),
+          posts: [new ObjectId(postID)]
+        });
+        console.log('New document inserted:', result);
+      }
+
+      res.sendStatus(200); // Example response
+    } catch (error) {
+      console.error('An error occurred while saving the data:', error);
+      res.sendStatus(500); // Example response
+    }
+  } else {
+    console.log('Received like request from unauthenticated user');
+    // Handle the case when the user is not logged in
+    // For example, send an error response or redirect to a login page
+    res.sendStatus(401); // Example response
+  }
 
 });
 

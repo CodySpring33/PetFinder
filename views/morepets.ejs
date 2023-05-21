@@ -8,9 +8,6 @@
 </head>
 
 <body>
-
-
-
   <header>
     <div class="header-container">
       <div class="logo-container">
@@ -258,12 +255,12 @@
           <div class="row mt-3">
             <% for (let j=i; j < i + 3 && j < posts.length; j++) { %>
               <div class="col-sm-4 grid-item">
-                <div class="container-fluid bg-light p-4">
-                  <!-- Content for Grid Item <%= j+1 %> -->
-                  <h4>
+                <div class="card">
+                  <img src="img/max.jpg" class="card-img-top">
+                  <h5 class="card-title">
                     <%=posts[j].name%>
-                  </h4>
-                  <p>
+                  </h5>
+                  <p class="card-text">
                     <%=posts[j].description%>
                   </p>
                 </div>
@@ -279,7 +276,6 @@
   <footer>
     <p id="footer">&copy; 2023 Pet Posts</p>
   </footer>
-
   <script src="js/logout.js"></script>
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="js/loadmoreitems.js"></script>
