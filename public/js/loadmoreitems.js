@@ -7,39 +7,15 @@ window.addEventListener("load", (event) => {
 });
 
 function addFilter(checkbox) {
-  console.log("this: ")
-  console.log(checkbox);
-  
+  //scroll to top
   document.getElementById('my-container').scrollTo(0, 0); 
 
   if(document.getElementById('my-container').length !== 0)
     document.getElementById('my-container').innerHTML = ""
 
-  // const checkboxes = document.querySelectorAll('.form-check-input');
-  // checkboxes.forEach(checkbox => {
-  //   const category = checkbox.dataset.category
-  //   const filter = checkbox.dataset.filter
-  //   if (checkbox.checked) {
-  //     if (filters[category] && !filters[category].includes(filter)) {
-  //       filters[category].push(filter);
-  //     } else {
-  //       filters[category] = [filter];
-  //     }
-  //   }
-  //   else {
-  //     if (filters[category]) {
-  //       filters[category] = filters[category].filter(item => item !== filter);
-  //       if (filters[category].length === 0) {
-  //         filters = {}
-  //       }
-  //     }
-  //   }
-  // });
   const category = checkbox.dataset.category
   const filter = checkbox.dataset.filter
 
-  console.log(category)
-  console.log(filter)
   if (checkbox.checked) {
     if (filters[category] && !filters[category].includes(filter)) {
       filters[category].push(filter);
@@ -80,11 +56,6 @@ function addItems(glolastID) {
       fetchString = `/additems?${filterParams}`;
     }
   }
-  console.log(fetchString);
-  // return;
-  // else {
-  //   fetchString = `/additems?last_id=${glolastID}`;
-  // }
 
   fetch(fetchString, {
     method: 'GET',
@@ -116,7 +87,6 @@ function addItems(glolastID) {
           }
           html += '</div>';
         }
-        // console.log(html)
         var myContainer = document.getElementById('my-container');
         myContainer.insertAdjacentHTML('beforeend', html);
       }

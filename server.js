@@ -134,7 +134,7 @@ app.get('/additems', async (req, res) => {
   const last_id = req.query.last_id; // Get 'last_id' from query parameter
   let cursor;
   let filters = {};
-  console.log(filters)
+  
   for(key in req.query){
     if(key !== "last_id"){
       const value = req.query[key].split(',');
@@ -150,10 +150,8 @@ app.get('/additems', async (req, res) => {
       }
     }
   }
-  // console.log("filters: ")
-  // console.log(filters)
 
-  let query = {}; // Initialize an empty query object
+  let query = {}; 
   // Build the query object based on the filters
   for (const category in filters) {
     query[category] = { $in: filters[category] };
@@ -164,15 +162,11 @@ app.get('/additems', async (req, res) => {
     cursor = collection.find(query).limit(page_size);
   } else {
     query["_id"] = { '$gt': new ObjectId(last_id) };
-    console.log("query: ")
-    console.log(query)
     cursor = collection.find(query).limit(page_size);
   }
 
   // Get the data
   const data = await cursor.toArray();
-  console.log("data: ")
-  console.log(data)
   if (!data.length) {
     // No documents left
     return res.json({ data: null, last_id: null });
