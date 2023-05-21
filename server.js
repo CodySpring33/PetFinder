@@ -134,15 +134,11 @@ app.get('/additems', async (req, res) => {
   const last_id = req.query.last_id; // Get 'last_id' from query parameter
   let cursor;
   let filters = {};
-  
+
   for(key in req.query){
     if(key !== "last_id"){
       const value = req.query[key].split(',');
-      // const category = key.replace('_', ' ');
-      const category = key;
 
-      console.log(category)
-      console.log(value)  
       if (filters[category]) {
         filters[category].push(value);
       } else {
