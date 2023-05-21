@@ -26,7 +26,7 @@ const storage = multerS3({
     cb(null, uniqueSuffix + path.extname(file.originalname))
   }
 })
-
+// 
 const upload = multer({ 
   storage: storage, 
   limits:{fileSize:1000000},
@@ -213,51 +213,65 @@ app.get('/morepets', async (req, res) => {
 
 // Post
 app.get('/post', async (req, res) =>{
+  const jwtCookie = req.cookies.jwt;
+  //console.log(jwtCookie);
+  // const userid = getCurrentUser(req.cookies.jwt)
+  // if(userid == -1){
+  //   res.redirect(`/login`);
+  // }
   let images = []
   res.render('post', {images: images})  
-  /// get images
-  //const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
-  // try {
-  //   await client.connect();
-
-  //   const db = client.db(MONGODB_DBNAME);
-  //   const collection = db.collection('images');
-  //   const images = await collection.find().sort({ _id: -1 }).toArray();
-    
-  //   res.render('post', { images:images })  
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).send('An error occurred while connecting to the database.');
-  // } finally {
-  //   await client.close();
-  // }
 });
 
 
 
 app.post("/upload", async(req, res) =>{
-  upload(req, res, (err) =>{
-    if(!err && req.files != ""){
-      // update database here
-      
-      saveFieldsInDB(req.body).then(function(result){
-        console.log(result)
-        saveImagesInDB(req.files, result)
-      })
-      res.status(200).send()
+  const jwtCookie = req.cookies.jwt;
+  if(jwtCookie){
+
+    var currentUser = null;
+    try {
+      // Verify the JWT using the JWT_SECRET key
+      const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+      const decodedToken = jwt.verify(jwtCookie, jwtSecret);
+      // Find the user by ID in the MongoDB database
+      const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+      await client.connect() // Wait for the connection to be established
+      const db = client.db(MONGODB_DBNAME)
+      const usersCollection = db.collection('users')
+      const user = await usersCollection.findOne({ _id: new ObjectId(decodedToken.userId) });
+      if (user) {
+        // If the user is found, send a success response and terminate the request
+        currentUser = new ObjectId(decodedToken.userId)
+      } 
+
+    } catch (err) {
+      // If the JWT is invalid, ignore it and proceed with the login flow
+      console.error(err)
     }
-    else if(!err && req.files ==""){
-      res.statusMessage = "Please select an image to upload"
-      res.status(400).end()
-    }
-    else{
-      res.statusMessage == (err === "Please upload images only") ? err : "Photo exceed limit of 1 MB"
-      res.status(400).end()
-    }
-  })
+    upload(req, res, (err) =>{
+
+      //console.log(req.body)
+      if(!err && req.files != ""){
+        // update database here
+        saveFieldsInDB(req.body, currentUser).then(function(result){
+          saveImagesInDB(req.files, currentUser,result)
+        })
+        res.status(200).send()
+      }
+      else if(!err && req.files ==""){
+        res.statusMessage = "Please select an image to upload"
+        res.status(400).end()
+      }
+      else{
+        res.statusMessage == (err === "Please upload images only") ? err : "Photo exceed limit of 1 MB"
+        res.status(400).end()
+      }
+    })
+  }
 })
 
-async function saveImagesInDB(images, postPromise){
+async function saveImagesInDB(images, currentUser, postPromise){
   const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
   await client.connect();
       const db = client.db(MONGODB_DBNAME);
@@ -268,7 +282,7 @@ async function saveImagesInDB(images, postPromise){
       const key = images[i].key
       const url = images[i].location
       //console.log("------------------------------",images)
-      const userid = 2
+      const userid = currentUser
       // Check if image key already exists in dabase
       const existingimage = await usersCollection.findOne({ $or: [{ key}] });
       if (existingimage) {
@@ -283,8 +297,6 @@ async function saveImagesInDB(images, postPromise){
         url
       };
       await usersCollection.insertOne(image);
-  
-  
     } catch (err) {
       console.error(err);
       // res.status(500).send('Error inserting image to db:',key);
@@ -293,50 +305,90 @@ async function saveImagesInDB(images, postPromise){
   await client.close();
 }
 
-async function saveFieldsInDB(fields){
+async function saveFieldsInDB(fields, currentUser){
   const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true })
   await client.connect();
   const db = client.db(MONGODB_DBNAME);
   const usersCollection = db.collection('posts');
-
+  const userid = currentUser
+  const petType = fields.petType
   const petName = fields.petName
   const breed = fields.breed
-  const available = fields.available
-  const petType = fields.petType
   const color = fields.color
+  const availability = fields.availability
   const coat = fields.coat
+  var goodWithAnimals = false
+  if(fields.goodWithAnimals){
+    goodWithAnimals = true
+  }
+  var goodWithChildren = false
+  if(fields.goodWithChildren){
+    goodWithChildren = true
+  }
+  var mustLeash = false
+  if(fields.mustLeash){
+    mustLeash = true
+  }
   const location = fields.location
-  const physical = fields.physical
+  const activity = fields.activity
+  const birthdate = fields.birthdate
   const health = fields.health
-  const fee = fields.fee
+  const fee = parseFloat(fields.fee)
   const description = fields.description
-  const userid = 2
-
+  
+  var post
   // Save the user data to MongoDB
-  const post = {
-    userid,
-    breed,
-    available,
-    petType,
-    petName,
-    breed,
-    color,
-    coat,
-    location,
-    physical,
-    health,
-    fee,
-    description
-  };
+  if(fields.petType=="Dog"){
+    post = {
+      userid,
+      breed,
+      availability,
+      petType,
+      petName,
+      breed,
+      color,
+      coat,
+      goodWithAnimals,
+      goodWithChildren,
+      mustLeash,
+      location,
+      activity,
+      birthdate,
+      health,
+      fee,
+      description
+    }
+  }
+  else{
+    post = {
+      userid,
+      availability,
+      petType,
+      petName,
+      color,
+      coat,
+      goodWithAnimals,
+      goodWithChildren,
+      mustLeash,
+      location,
+      activity,
+      birthdate,
+      health,
+      fee,
+      description
+    }
+  }
+  
   const insertedFields = await usersCollection.insertOne(post, function(){
     return post._id
-
   })
   await client.close();
   return insertedFields
 }
 
-
+async function getCurrentUser(currentJwt){
+  
+}
 
 // app.put("/delete", (req, res) =>{
 //   const deleteImages = req.body.deleteImages

@@ -13,8 +13,10 @@
         </div>
         <nav>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="content">All Pets</a></li>         
+            <li><a href="/content">Home</a></li>
+          <li><a href="/morepets">More Pets</a></li>
+          <li><a href="/post">Post Pet</a></li>
+          <li><a href="#" id="logout-link">Logout</a></li>       
           </ul>
         </nav>
       </div>
@@ -23,79 +25,135 @@
     <main class="app">
 
       <div class="header">
-        <h2>Upload Images</h2>
+        <h2>Post Pet</h2>
         <div class="server-message"></div>
       </div>
   
       <div class="input-div">
-        <p>Drag & drop photos here or <span class="browse">Browse</span></p>
+        <p>Drag & drop photos here or <span class="details" class="browse">Browse</span></p>
         <input type="file" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg"/>
       </div>
 
       <form id="queued-form">
         <div class="header">
-          <h3>Queued in Frontend</h3>
+          <h3>Images</h3>
           
         </div>
         <!--Images user is trying to upload go here-->
         <div class="queued-div"></div>
-        <br>
 
-        <label >Pet Type:</label>
-        <input name="petType"  required>
+          <div class ="container">
+            <div class ="postFields">
+              <div class="input-box">
+                <span class="details" >Choose pet type</span>
+                <select name="petType" onchange="breedsCheck(this);" required>
+                  <option value="Dog">Dog</option>
+                  <option value="Cat">Cat</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details" >Name:</span>
+                <input name="petName"  required>
+              </div>
+              <div class="input-box" id="breedHidden">
+                <span class="details" >Choose pet breed</span>
+                <select name="breed" required>
+                  <option value="French Bulldog">French Bulldog</option>
+                  <option value="Labrador Retriever">Labrador Retriever</option>
+                  <option value="Golden Retriever">Golden Retriever</option>
+                  <option value="German Shepherd">German Shepherd</option>
+                  <option value="Poodle">Poodle</option>
+                  <option value="Bulldog">Bulldog</option>
+                  <option value="Rottweiler">Rottweiler</option>
+                  <option value="Beagle">Beagle</option>
+                  <option value="Dachshund">Dachshund</option>
+                  <option value="German Shorthaired Pointer">German Shorthaired Pointer</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details" >Color:</span>
+                <input name="color"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Choose pet availability</span>
+                <select name="availability" required>
+                  <option value="Available">Available</option>
+                  <option value="Not Available">Not Available</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Adopted">Adopted</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details" >Coat:</span>
+                <select name="coat" required>
+                  <option value="Short">Short</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Long">Long</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              
+              
+                <span class="details" >Pet Characteristics:</span>
+                <div class="checks">
+                  <input type="checkbox" id="animals" name="goodWithAnimals" value="animals" />
+                  <label for="animals">Good with other animals</label>
+                </div>
+                <div class="checks">
+                  <input type="checkbox" id="children" name="goodWithChildren" value="children" />
+                  <label for="children">Good with children</label>
+                </div>
+                <div class="checks">
+                  <input type="checkbox" id="leash" name="mustLeash" value="leash" />
+                  <label for="leash">Animal must be leashed at all times</label>
+                </div>
+              
+           
+              <div class="input-box">
+                <span class="details" >Location:</span>
+                <input name="location"  required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Activity level:</span>
+                <select name="activity" required>
+                  <option value="Low">Low</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details" >Birthdate:</span>
+                <input type="date" name="birthdate" required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Health Description:</span>
+                <input name="health" required>
+              </div>
+              <div class="input-box">
+                <span class="details" >Adoption Fee:</span>
+                <input type="number" step="0.01" name="fee" required>
+              </div>
+              <div class="input-box">
+                <span class="details"  >Description:</span>
+                <textarea name="description" id="desc" required></textarea>
+                <!-- <textarea id="desc" name="description" placeholder="Write something.." style="height:200px"></textarea> -->
+              </div>
+            </div>
+            <button type="submit">Upload</button>
+          </div>
+          
 
-        <br>
-
-        <label >Name:</label>
-        <input name="petName"  required>
-
-        <br>
-
-        <label >Breed:</label>
-        <input name="breed"  required>
-
-        <br>
-
-        <label >Color:</label>
-        <input name="color"  required>
-
-        <br>
-  
-        <label >Available:</label>
-        <input name="available"  required>
-  
-        <br>
-
-        <label >Coat:</label>
-        <input name="coat"  required>
-
-        <br>
-
-        <label >Location:</label>
-        <input name="location"  required>
-
-        <br>
-
-        <label >Physical:</label>
-        <input name="physical" required>
-
-        <br>
-
-        <label >health:</label>
-        <input name="health" required>
-
-        <br>
-
-        <label >fee:</label>
-        <input name="fee" required>
-
-        <br>
-
-        <label >Description:</label>
-        <input name="description" required>
         
         <br>
-        <button type="submit">Upload</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
       </form>
 
       
@@ -121,7 +179,7 @@
     <footer>
       <p>&copy; 2023 Pet Posts</p>
     </footer>
-
+    <script src="js/logout.js"></script>
     <script src="./js/post.js"></script>
   </body>
 </html>

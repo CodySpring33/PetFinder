@@ -8,59 +8,11 @@ let queuedImagesArray = [],
       serverMessage = document.querySelector(".server-message"),
       deleteImages = []
 
-//   savedImages = JSON.parse('<%-JSON.stringify(images)%>')
-
-// saved in server images
-// if(savedImages){
-//   displaySavedImages()
-// }
-
-function displaySavedImages(){
-// let images = ""
-// savedImages.forEach((image,index) =>{
-//   images += `<div class="image">
-//               <img src="https://tailwag-test.s3.us-west-2.amazonaws.com/pic1.png" 
-//               alt="image">
-//               <span onclick="deleteSavedImage(${index})">&times;</span>
-//             </div>`
-// })
-// savedDiv.innerHTML = images
-}
-
 function deleteSavedImage(index){
 deleteImages.push(savedImages[index].key)
 savedImages.splice(index, 1)
 displaySavedImages()
 }
-
-// savedForm.addEventListener("submit", (e)=>{
-//   e.preventDefault()
-//   deleteImagesFromServer()
-// })
-
-// function deleteImagesFromServer(){
-//   fetch("delete", {
-//     method: "PUT",
-//     headers: {
-//       "Accept": "application/json, text/plain, */*",
-//       "Content-type": "application/json"
-//     },
-//     body: JSON.stringify({deleteImages})
-//   })
-//   .then(response =>{
-//     if(response.status !== 200) throw Error(response.statusText)
-//     deleteImages = []
-//     serverMessage.innerHTML = response.statusText
-//     serverMessage.style.cssText = "background-color: #d4edda; color: #1b5e20"
-//   })
-
-//   .catch(error => {
-//     serverMessage.innerHTML = error
-//     serverMessage.style.cssText = "background-color: #f8d7da; color: #b71c1c"
-//   })
-// }
-
-
 
 // queued in frontend images
 input.addEventListener("change", ()=>{
@@ -68,7 +20,8 @@ const files = input.files
 for(let i = 0; i < files.length; i++){
     queuedImagesArray.push(files[i])
 }
-queuedForm.reset()
+//queuedForm.reset()
+queuedDiv.innerHTML = "";
 console.log(queuedForm)
 displayQueuedImages()
 })
@@ -117,6 +70,7 @@ queuedImagesArray.forEach((image, index) =>{
 
 fetch("upload", {
     method:"POST",
+    credentials: 'include',
     body: formData
 })
 
@@ -131,4 +85,13 @@ fetch("upload", {
     serverMessage.innerHTML = error
     serverMessage.style.css = "background-color: #f8d7da; color: #b71c1c"
 })
+}
+
+// Show breeds if pet type Dog is selected
+function breedsCheck(that) {
+    if (that.value == "Dog") {
+        document.getElementById("breedHidden").style.visibility = "visible";
+    } else {
+        document.getElementById("breedHidden").style.visibility = "hidden";
+    }
 }
