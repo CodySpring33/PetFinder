@@ -130,12 +130,32 @@ app.get('/additems', async (req, res) => {
   const page_size = 9 // 
   const last_id = req.query.last_id; // Get 'last_id' from query parameter
   let cursor;
+  let filters = {};
+
+  for(key in req.query){
+    if(key !== "last_id"){
+      const value = req.query[key].split(',');
+
+      if (filters[category]) {
+        filters[category].push(value);
+      } else {
+        filters[category] = value;
+      }
+    }
+  }
+
+  let query = {}; 
+  // Build the query object based on the filters
+  for (const category in filters) {
+    query[category] = { $in: filters[category] };
+  }
 
   if (!last_id) {
     // When it is the first page
-    cursor = collection.find().limit(page_size);
+    cursor = collection.find(query).limit(page_size);
   } else {
-    cursor = collection.find({ '_id': { '$gt': new ObjectId(last_id) } }).limit(page_size);
+    query["_id"] = { '$gt': new ObjectId(last_id) };
+    cursor = collection.find(query).limit(page_size);
   }
 
   // Get the data

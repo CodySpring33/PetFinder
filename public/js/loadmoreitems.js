@@ -1,9 +1,39 @@
 const myDiv = document.getElementById('my-grid');
 var firstLoad = 1;
+let filters = {};
 
 window.addEventListener("load", (event) => {
   addItems();
 });
+
+function addFilter(checkbox) {
+  //scroll to top
+  document.getElementById('my-container').scrollTo(0, 0); 
+
+  if(document.getElementById('my-container').length !== 0)
+    document.getElementById('my-container').innerHTML = ""
+
+  const category = checkbox.dataset.category
+  const filter = checkbox.dataset.filter
+
+  if (checkbox.checked) {
+    if (filters[category] && !filters[category].includes(filter)) {
+      filters[category].push(filter);
+    } else {
+      filters[category] = [filter];
+    }
+  }
+  else {
+    if (filters[category]) {
+      //remove repeats
+      filters[category] = filters[category].filter(item => item !== filter);
+      if (filters[category].length === 0) {
+        filters = {}
+      }
+    }
+  }
+  addItems();
+}
 
 function addItems(glolastID) {
   let fetchString;
@@ -12,7 +42,19 @@ function addItems(glolastID) {
     firstLoad = 0;
   }
   else {
-    fetchString = `/additems?last_id=${glolastID}`;
+    if (filters.length === 0) {
+      fetchString = `/additems?last_id=${glolastID}`;
+    } else if (glolastID !== undefined) {
+      let filterParams = Object.keys(filters)
+        .map(key => `${key}=${filters[key]}`)
+        .join('&');
+      fetchString = `/additems?last_id=${glolastID}&${filterParams}`;
+    } else {
+      let filterParams = Object.keys(filters)
+        .map(key => `${key}=${filters[key]}`)
+        .join('&');
+      fetchString = `/additems?${filterParams}`;
+    }
   }
 
   fetch(fetchString, {
