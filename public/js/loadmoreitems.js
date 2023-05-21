@@ -9,6 +9,9 @@ window.addEventListener("load", (event) => {
 function addFilter(checkbox) {
   console.log("this: ")
   console.log(checkbox);
+  
+  document.getElementById('my-container').scrollTo(0, 0); 
+
   if(document.getElementById('my-container').length !== 0)
     document.getElementById('my-container').innerHTML = ""
 
