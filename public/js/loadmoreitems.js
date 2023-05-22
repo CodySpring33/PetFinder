@@ -78,7 +78,7 @@ function addItems(glolastID) {
           html += '<div class="row mt-3">';
           for (let j = i; j < i + 3 && j < newitems.length; j++) {
             html += '<div class="col-sm-4 grid-item">' +
-              '<div class="card">' +
+              '<div class="card gridCard">' +
               '<img src="img/max.jpg" class="card-img-top">' +
               '<div class="card-body">'+
               '<h5 class="card-title">' + newitems[j].name + '</h5>' +

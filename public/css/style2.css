@@ -515,12 +515,6 @@ footer p {
   }
 
 /* morepets.ejs */
-.grid-container {
-    height: 800px;
-    /* Set the height of the container */
-    overflow-y: auto;
-    /* Enable vertical scrolling */
-}
 
 .container-fluid {
     height: 333px;
@@ -533,3 +527,11 @@ footer p {
     overflow-y: auto;
 }
 
+.gridCard:hover {
+    transform: scale(1.01);
+}
+
+#my-grid{
+    height: 70vh;
+    overflow-y: auto;
+}
