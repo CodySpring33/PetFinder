@@ -6,11 +6,21 @@ window.addEventListener("load", (event) => {
   addItems();
 });
 
+function fetchProfile(id) {
+  let fetchString = `/petpost?id=${id}`;
+  console.log(fetchString)
+  fetch(fetchString, {
+    method: 'GET',
+  })
+}
+
 function assing(){
   let cards = document.getElementsByClassName('gridCard');
 
   for (let i = 0; i < cards.length; i++) {
-    cards[i].addEventListener("click", function () {console.log(this.dataset.id)});
+    cards[i].addEventListener("click", function () {
+      fetchProfile(this.dataset.id);
+    });
   }
 }
 
