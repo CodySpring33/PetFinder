@@ -10,7 +10,8 @@ OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submissio
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
-- [Technology Used](#tech)
+- [Technology Used](#techstack)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Navigation
@@ -25,6 +26,23 @@ OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submissio
 - Configure Amazon S3 database
 
 If you wish to run this app locally, it will not work without a properly configured MongoDB cluster and an Amazon s3 bucket.
+
+When configuring your Amazon S3 database make sure to add this policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "MakeItPublic",
+            "Effect": "Allow",
+            "Principal": "",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::tailwag-test/"
+        }
+    ]
+}
+```
 
 ## Installation
 
@@ -58,7 +76,7 @@ Run the program:
 
 Navigate to http://localhost:3000/ to see the local version of the app.
 
-## Tech Stack
+## TechStack
 
 The project mainly uses the following technologies:
 
@@ -75,6 +93,10 @@ The project mainly uses the following technologies:
 If you would like to test out our deployment (https://pet-match-test.herokuapp.com) without making an account you may use the testing credentials:
 - username: test
 - password: password1234
+
+## Contributing
+
+Please look at our issues to find a suitable task for you to contribute to. Our main development tree would be: Individual pet screens, UI polish, then any other issue you feel comfortable contributing to.
 
 
 ## License
