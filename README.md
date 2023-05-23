@@ -72,7 +72,7 @@ The project mainly uses the following technologies:
 
 ## Testing
 
-If you would like to test out our deployment without making an account you may use the testing credentials:
+If you would like to test out our deployment (https://pet-match-test.herokuapp.com) without making an account you may use the testing credentials:
 - username: test
 - password: password1234
 
