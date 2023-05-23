@@ -437,15 +437,28 @@ footer p {
     animation: slide-left 1.5s ease-in-out forwards;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the card horizontally */
+    border: 1px solid #ccc; /* Optional: Add border styling */
+  }
+  
+  .card-img {
+    object-fit: cover; /* Ensure the image fills the container */
+    max-height: 300px; /* Adjust the maximum height as needed */
+    width: 100%; /* Adjust the width as needed */
+  }
+
 .swiped-right {
     animation: slide-right 1.5s ease-in-out forwards;
 }
 
 .swipe-card {
     width: 80%;
-    max-width: 800px;
-    height: 80%;
-    max-height: 800px;
+    max-width: 400px;
+    
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -492,10 +505,9 @@ footer p {
 }
 
 .arrow-circle {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background-color: gray;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -504,9 +516,12 @@ footer p {
     flex-shrink: 0;
 }
 
-.arrow-icon {
-    color: white;
-    font-size: 16px;
+#left{
+    background-color: red;
+}
+
+#right{
+    background-color: greenyellow;
 }
 
 .right {

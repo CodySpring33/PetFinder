@@ -214,11 +214,6 @@ app.get('/morepets', async (req, res) => {
 // Post
 app.get('/post', async (req, res) =>{
   const jwtCookie = req.cookies.jwt;
-  //console.log(jwtCookie);
-  // const userid = getCurrentUser(req.cookies.jwt)
-  // if(userid == -1){
-  //   res.redirect(`/login`);
-  // }
   let images = []
   res.render('post', {images: images})  
 });
@@ -251,7 +246,7 @@ app.post("/upload", async(req, res) =>{
     }
     upload(req, res, (err) =>{
 
-      //console.log(req.body)
+      
       if(!err && req.files != ""){
         // update database here
         saveFieldsInDB(req.body, currentUser).then(function(result){
@@ -281,7 +276,7 @@ async function saveImagesInDB(images, currentUser, postPromise){
       
       const key = images[i].key
       const url = images[i].location
-      //console.log("------------------------------",images)
+      
       const userid = currentUser
       // Check if image key already exists in dabase
       const existingimage = await usersCollection.findOne({ $or: [{ key}] });
@@ -416,8 +411,8 @@ app.get('/posts', async (req, res) => {
 
     const db = client.db(MONGODB_DBNAME);
     const collection = db.collection('posts');
-
-    const posts = await collection.find().sort({ _id: -1 }).limit(10).toArray();
+    const imageCollection = db.collection('images');
+    const posts = await collection.find().sort({ _id: -1 }).toArray();
 
     if (posts.length === 0) {
       res.status(404).send('No posts found.');
@@ -428,7 +423,25 @@ app.get('/posts', async (req, res) => {
     const index = parseInt(req.query.index);
     if (index >= 0 && index < posts.length) {
       const currentPost = posts[index];
-      res.json(currentPost);
+      
+      const image = await imageCollection.findOne({postid: posts[index]._id});
+      var response;
+      if(image)
+      {
+        response = {
+          currentPost: currentPost,
+          image: image
+        };
+      }
+      else{
+        response = {
+          currentPost: currentPost,
+          image: {url: "./img/max.jpg"}
+        };
+      }
+        
+      res.json(response);
+      
     } else {
       res.json({ message: "No posts left" });
     }
@@ -504,7 +517,7 @@ app.post('/liked', async (req, res) => {
 
       // Extract the user ID and post ID from the request payload
       const postID = req.body.postID;
-      console.log(postID);
+      
 
       // Check if the user exists in the liked collection
       const likedCollection = db.collection('liked');

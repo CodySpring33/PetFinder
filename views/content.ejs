@@ -5,6 +5,7 @@
   <title>TailWag</title>
   <link rel="stylesheet" href="css/style2.css">
   <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
 <body>
@@ -32,24 +33,22 @@
     <p>Check out our latest posts:</p>
     <section>
       <div class="arrow-container">
-        <div class="arrow-circle left">
-          <span class="arrow-icon">&#9664;</span>
+        <div class="arrow-circle left" id="left">
+          <i class="fas fa-thumbs-down"></i>
         </div>
 
-        <div id="swipe-div" class="container-fluid">
+        
           <div class="swipe-card" id="swipe-content">
-            <div data-lastID="" id="my-container">
-              <div class="card">
-                <article id="latest-post">
-                  <h3>Post Title 1</h3>
-                  <p>Post content goes here...</p>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="arrow-circle right">
-            <span class="arrow-icon">&#9654;</span>
+                  <article id="latest-post">
+                    <h3>Post Title 1</h3>
+                    <p>Post content goes here...</p>
+                  </article></p>
+                </div>
+              
+          
+        
+          <div class="arrow-circle right" id="right">
+            <i class="fas fa-thumbs-up"></i>
           </div>
         </div>
         
