@@ -524,6 +524,10 @@ footer p {
     background-color: greenyellow;
 }
 
+.flip-horizontal {
+    transform: scaleX(-1);
+  }
+
 .right {
     /* Add the following */
     margin-left: 10px;
