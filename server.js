@@ -211,6 +211,29 @@ app.get('/morepets', async (req, res) => {
   }
 });
 
+app.get('/likedpets', async (req, res) => {
+  const jwtCookie = req.cookies.jwt;
+  const client = new MongoClient(MONGODB_URI, { useUnifiedTopology: true });
+  try {
+    await client.connect();
+    const jwtSecret = process.env.JWT_SECRET; // Store the secret key securely, e.g., in environment variables
+    const decodedToken = jwt.verify(jwtCookie, jwtSecret);
+    const db = client.db(MONGODB_DBNAME);
+    const collection = db.collection('posts');
+    const likedCollection = db.collection('liked');
+    
+    let posts = [];
+    const liked = await likedCollection.findOne({ userid: new ObjectId(decodedToken.userId) });
+    posts = await collection.find({_id: { $in: liked.posts}}).toArray();
+    res.render('morepets', { posts });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while connecting to the database.');
+  } finally {
+    await client.close();
+  }
+});
+
 // Post
 app.get('/post', async (req, res) =>{
   const jwtCookie = req.cookies.jwt;
