@@ -6,6 +6,24 @@ window.addEventListener("load", (event) => {
   addItems();
 });
 
+function fetchProfile(id) {
+  let fetchString = `/petpost?id=${id}`;
+  console.log(fetchString)
+  fetch(fetchString, {
+    method: 'GET',
+  })
+}
+
+function assing(){
+  let cards = document.getElementsByClassName('gridCard');
+
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener("click", function () {
+      fetchProfile(this.dataset.id);
+    });
+  }
+}
+
 function addFilter(checkbox) {
   //scroll to top
   document.getElementById('my-container').scrollTo(0, 0); 
@@ -78,7 +96,7 @@ function addItems(glolastID) {
           html += '<div class="row mt-3">';
           for (let j = i; j < i + 3 && j < newitems.length; j++) {
             html += '<div class="col-sm-4 grid-item">' +
-              '<div class="card gridCard">' +
+              '<div data-id="'+ newitems[j]._id +'"class="card gridCard">' +
               '<img src="img/max.jpg" class="card-img-top">' +
               '<div class="card-body">'+
               '<h5 class="card-title">' + newitems[j].name + '</h5>' +
@@ -91,6 +109,7 @@ function addItems(glolastID) {
         }
         var myContainer = document.getElementById('my-container');
         myContainer.insertAdjacentHTML('beforeend', html);
+        assing();
       }
     })
     .catch(error => {
