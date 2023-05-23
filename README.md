@@ -24,6 +24,8 @@ OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submissio
 - Configure MongoDB database
 - Configure Amazon S3 database
 
+If you wish to run this app locally, it will not work without a properly configured MongoDB cluster and an Amazon s3 bucket.
+
 ## Installation
 
 To install and run this application, you will need to have Node.js and npm (Node Package Manager) installed on your computer. Follow these steps to get started:
@@ -56,7 +58,7 @@ Run the program:
 
 Navigate to http://localhost:3000/ to see the local version of the app.
 
-## Tech
+## Tech Stack
 
 The project mainly uses the following technologies:
 
@@ -67,6 +69,12 @@ The project mainly uses the following technologies:
 - MongoDB
 - Amazon S3
 - NodeJS
+
+## Testing
+
+If you would like to test out our deployment without making an account you may use the testing credentials:
+username: test
+password: password1234
 
 
 ## License
