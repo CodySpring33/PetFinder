@@ -1,10 +1,19 @@
 var swipeContent = document.getElementsByClassName("swipe-card")[0];
+var leftArrow = document.getElementById("left");
+var rightArrow = document.getElementById("right");
 var startX, endX;
 let currentIndex = getCookie('currentIndex');
 
 
 
+rightArrow.addEventListener("mousedown", function(event) {
+  sendLike();
+  getNextPost();
+})
 
+leftArrow.addEventListener("mousedown", function(event) {
+  getNextPost();
+})
 
 swipeContent.addEventListener("mousedown", function(event) {
   startX = event.clientX;
@@ -17,7 +26,22 @@ swipeContent.addEventListener("mouseup", function(event) {
   if (deltaX > 0) {
     swipeContent.classList.add("swiped-right");
     //cant get http only cookie TODO fix
-    var postID = getCookie('postID')
+      sendLike();
+      getNextPost();
+  } else if (deltaX < 0) {
+    swipeContent.classList.add("swiped-left");
+    
+    getNextPost();
+  }
+
+  // Remove the swipe classes after the transition is complete
+  setTimeout(function() {
+    swipeContent.classList.remove("swiped-left", "swiped-right");
+  }, 300);
+});
+
+function sendLike() {
+  var postID = getCookie('postID')
     fetch('/liked', {
       method: 'POST',
       credentials: 'include',
@@ -39,26 +63,17 @@ swipeContent.addEventListener("mouseup", function(event) {
         console.error('An error occurred during the POST request:', error);
         // Handle the error here
       });
-      getNextPost();
-  } else if (deltaX < 0) {
-    swipeContent.classList.add("swiped-left");
-    
-    getNextPost();
-  }
-
-  // Remove the swipe classes after the transition is complete
-  setTimeout(function() {
-    swipeContent.classList.remove("swiped-left", "swiped-right");
-  }, 300);
-});
+}
 
 function getNextPost() {
   fetch(`/posts?index=${currentIndex}`, {
     method: 'GET',
   })
   .then(response => response.json())
-  .then(post => {
+  .then(data => {
     // Update the HTML with the next post
+    const post = data.currentPost;
+    const image = data.image;
     if(post.message == "No posts left")
     {
       const latestPost = document.getElementById('latest-post');
@@ -68,9 +83,12 @@ function getNextPost() {
     }
     else{
       const latestPost = document.getElementById('latest-post');
+      //var img = image.url;
+      
       latestPost.innerHTML = `
-        <h3>${post.name}</h3>
-        <img src="${post.imageURL}" class="card-img-top" alt="${post.name}">
+        <div class="card">
+        <img src="${image.url}" class="card-img-top img-fluid card-img" alt="Card Image">
+        <div class="card-body">
         <p><strong>Breed:</strong> ${post.breed}</p>
         <p><strong>Coat:</strong> ${post.coat}</p>
         <p><strong>Color:</strong> ${post.color}</p>
@@ -78,7 +96,9 @@ function getNextPost() {
         <p><strong>Physical</strong>: ${post.physical}</p>
         <p><strong>Health</strong>: ${post.health}  </p>
         <p><strong>Fee:</strong> ${post.fee}</p>
-        <p><strong>Description:</strong> ${post.description}</p>
+        <p><strong>Description:</strong> See More</p>
+        </div>
+        </div>
       `;
       setCookie('currentIndex', currentIndex);
       setCookie('postID', post._id);
