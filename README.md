@@ -73,8 +73,8 @@ The project mainly uses the following technologies:
 ## Testing
 
 If you would like to test out our deployment without making an account you may use the testing credentials:
-username: test
-password: password1234
+- username: test
+- password: password1234
 
 
 ## License
