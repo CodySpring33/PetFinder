@@ -1,4 +1,4 @@
-Collections:
+All Needed Collections for a Configured MongoDB:
 ```
 LikedPosts:
 _id:theobjectIDforthedocument
