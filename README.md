@@ -1,6 +1,5 @@
 # TailWag
 
-OSU Captone Project: https://eecs.engineering.oregonstate.edu/capstone/submission/pages/viewSingleProject.php?id=g3Y16iyxGGeDewQE
 
 
 
